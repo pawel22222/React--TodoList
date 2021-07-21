@@ -1,0 +1,13 @@
+.appDiv{
+  background-color: #282c34;
+  color: white;
+  min-height: 100Vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todoAppContainer{
+  background-color: #3c4455;
+  width: 600px;
+}
