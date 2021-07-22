@@ -4,10 +4,19 @@
   min-height: 100Vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .todoAppContainer{
   background-color: #3c4455;
   width: 600px;
+  margin: 10px 0;
 }
+
+@media (max-width: 768px) {
+  .todoAppContainer{
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+  }
+ }

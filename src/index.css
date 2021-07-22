@@ -11,3 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.isChecked{
+  opacity: .5;
+  text-decoration: line-through;
+}
