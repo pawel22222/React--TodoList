@@ -11,15 +11,16 @@ const Task = function ({ id, name, isChecked, checkTask, removeTask }) {
                     onClick={ () => checkTask(id) } >
                     <input
                         className="form-check-input"
+                        style={ { cursor: 'pointer' } }
                         type="checkbox"
                         value="zrobic zakupy"
                         checked={ isChecked }
                         onChange={ () => checkTask(id) }
                     />
                     <label
-                        style={ { userSelect: "none" } }
-                        onClick={ () => checkTask(id) }
                         className={ `form-check-label ${(isChecked === true) ? "isChecked" : ""}` }
+                        style={ { userSelect: "none", cursor: 'pointer' } }
+                        onClick={ () => checkTask(id) }
                         htmlFor="flexCheckChecked">
                         { name }
                     </label>
@@ -30,7 +31,7 @@ const Task = function ({ id, name, isChecked, checkTask, removeTask }) {
                     onClick={ () => removeTask(id) }
                 />
             </div>
-            <hr className="my-1" />
+            {/* <hr className="my-2" /> */ }
         </>
     )
 }
