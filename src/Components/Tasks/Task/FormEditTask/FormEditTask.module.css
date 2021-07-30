@@ -1,0 +1,15 @@
+.btnClose{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+.editTaskDiv{
+    position: absolute;
+    top: calc(50% - 40px);
+    left: calc(50% - 150px);
+
+    background-color: #282C34;
+    border: 1px solid white;
+    z-index: 1;
+    opacity: .9;
+}

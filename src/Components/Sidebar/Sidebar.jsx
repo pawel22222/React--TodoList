@@ -6,16 +6,16 @@ import FormNewList from '../Form/FormNewItem'
 import Lists from './Lists/Lists'
 
 const Sidebar = function ({ lists, setLists, displayTasksOfList, setDisplayTasksOfList }) {
-
     const sidebarDiv = useRef(null)
     const toggleSidebar = () => sidebarDiv.current.classList.toggle('slide')
 
     const [inputValueNewList, setInputValueNewList] = useState('')
 
-    // ? State tylko po to by useEffect wykonał się po wywołaniu funkcji handlerAddList
+    // Info: State tylko po to aby useEffect wykonał się po wywołaniu funkcji handlerAddList
     const [useEffectAssistant, setUseEffectAssistant] = useState(1)
 
     useEffect(() => setDisplayTasksOfList(lists[0].id)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         , [useEffectAssistant])
 
     const addList = (nameNewList) => {
@@ -24,6 +24,7 @@ const Sidebar = function ({ lists, setLists, displayTasksOfList, setDisplayTasks
             name: nameNewList,
             tasks: []
         }, ...lists])
+        toggleSidebar()
     }
 
     const handlerAddList = () => {
@@ -35,8 +36,14 @@ const Sidebar = function ({ lists, setLists, displayTasksOfList, setDisplayTasks
     }
 
     const removeList = (id) => {
-        if (lists.length <= 1) console.log('nie mozna usunac ostatniej listy')
-        else if (id === displayTasksOfList) console.log('nie można usunąć bierżącej listy')
+        if (lists.length <= 1) alert('the last list cannot be deleted')
+        else if (id === displayTasksOfList) {
+            (lists[0].id === id)
+                ? setDisplayTasksOfList(lists[1].id)
+                : setDisplayTasksOfList(lists[0].id)
+            // setUseEffectAssistant(useEffectAssistant + 1)
+            setLists(lists.filter((list) => list.id !== id))
+        }
         else setLists(lists.filter((list) => list.id !== id))
     }
 

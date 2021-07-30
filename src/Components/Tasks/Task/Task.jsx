@@ -1,9 +1,31 @@
-import ButtonRemove from '../../UI/ButtonMain/ButtonMain'
+import { useState, useRef } from 'react'
+import styles from './Task.module.css'
+import ButtonTask from '../../UI/ButtonMain/ButtonMain'
+import FormEditTask from './FormEditTask/FormEditTask'
 
-const Task = function ({ id, name, isChecked, checkTask, removeTask }) {
+const Task = function ({ id, name, isChecked, checkTask, editTask, removeTask }) {
+    // const formEditTaskDiv = useRef(null)
+    const [isEditing, setIsEditing] = useState(false)
+
+    const openEditForm = () => {
+        setIsEditing(true)
+    }
 
     return (
         < >
+            {
+                (isEditing)
+                && <div
+                    // ref={ formEditTaskDiv }
+                    className={ `${styles.formEditTaskDiv}` }>
+                    <FormEditTask
+                        id={ id }
+                        name={ name }
+                        setIsEditing={ setIsEditing }
+                        editTask={ editTask }
+                    />
+                </div>
+            }
             <div className="taskDiv d-flex justify-content-between align-items-center ">
                 <div
                     className={ "form-check w-100 h-100 py-2" }
@@ -25,13 +47,18 @@ const Task = function ({ id, name, isChecked, checkTask, removeTask }) {
                         { name }
                     </label>
                 </div>
-                <ButtonRemove
+                <ButtonTask
+                    name="/"
+                    color="outline-warning"
+                    onClick={ () => openEditForm() }
+                />
+                <span className="pe-1"></span>
+                <ButtonTask
                     name="X"
                     color="outline-danger"
                     onClick={ () => removeTask(id) }
                 />
             </div>
-            {/* <hr className="my-2" /> */ }
         </>
     )
 }

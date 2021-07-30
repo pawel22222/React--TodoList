@@ -3,7 +3,6 @@ import styles from './App.module.css'
 // Components
 import Sidebar from './Components/Sidebar/Sidebar'
 import Header from './Components/Header/Header'
-// import FormNewTask from './Components/Header/FormNewTask/FormNewTask'
 import Tasks from './Components/Tasks/Tasks'
 
 function App() {
@@ -73,6 +72,20 @@ function App() {
     })
   )
 
+  const editTask = (id, newNameTask) => setLists(lists.map((list) => {
+    if (list.id === displayTasksOfList) {
+      return {
+        ...list, tasks: list.tasks.map((task) =>
+          (task.id === id)
+            ? { ...task, name: newNameTask }
+            : task
+        )
+      }
+    } else {
+      return list
+    }
+  }))
+
   const clearAllChecked = () => setLists(
     lists.map((list) => {
       if (list.id === displayTasksOfList) {
@@ -80,8 +93,6 @@ function App() {
       } else return list
     })
   )
-
-
 
   return (
     <div className={ `${styles.appDiv}` }>
@@ -103,6 +114,7 @@ function App() {
           lists={ lists }
           displayTasksOfList={ displayTasksOfList }
           checkTask={ checkTask }
+          editTask={ editTask }
           removeTask={ removeTask }
         />
       </div>
