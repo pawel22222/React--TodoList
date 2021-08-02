@@ -2,6 +2,8 @@
     background-color: #282c34;
     border-right: 1px solid rgb(94, 94, 94);
     min-height: 100vh;
+    max-height: 100vh;
+    overflow: auto;
     width: 250px;
     position: absolute;
     top: 0;
@@ -17,9 +19,10 @@
     left: 0;
     z-index: 2;
 }
+
 @media (max-width: 768px) {
     .hamburgerDiv{
         top: 10px;
     }
-   }
+}
 

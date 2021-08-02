@@ -57,7 +57,7 @@ const Sidebar = function ({ lists, setLists, displayTasksOfList, setDisplayTasks
                     onClick={ toggleSidebar }
                 />
             </div>
-            <nav
+            <aside
                 ref={ sidebarDiv }
                 className={ `${styles.sidebarDiv} p-2` }
             >
@@ -75,7 +75,7 @@ const Sidebar = function ({ lists, setLists, displayTasksOfList, setDisplayTasks
                     removeList={ removeList }
                     setDisplayTasksOfList={ setDisplayTasksOfList }
                 />
-            </nav>
+            </aside>
         </>
     )
 }
