@@ -6,10 +6,13 @@ const List = function ({ id, name, removeList, setDisplayTasksOfList }) {
             <button
                 className="btn btn-link link-light p-0"
                 onClick={ () => setDisplayTasksOfList(id) }
+                style={ { userSelect: "none", wordBreak: 'break-all' } }
             >
                 { name }
             </button>
-            <Button name="x" color="outline-danger" onClick={ () => removeList(id) } />
+            <div className="ms-1">
+                <Button name="x" color="outline-danger" onClick={ () => removeList(id) } />
+            </div>
         </div>
     )
 }

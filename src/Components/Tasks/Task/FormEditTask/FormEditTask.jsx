@@ -15,7 +15,10 @@ const FormEditTask = function ({ id, name, isEditing, setIsEditing, editTask }) 
         , [isEditing])
 
     return (
-        <div className={ `${styles.editTaskDiv} d-flex flex-column p-1` }>
+        <div
+            className={ `${styles.editTaskDiv} d-flex flex-column p-1` }
+            onKeyDown={ (e) => (e.key === 'Escape') && setIsEditing(false) }
+        >
             <header className={ `d-flex justify-content-between mb-1 ` }>
                 <h4 className="me-2 my-auto">Edit task </h4>
                 <ButtonFormEdit

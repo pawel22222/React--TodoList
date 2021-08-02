@@ -4,19 +4,16 @@ import ButtonTask from '../../UI/ButtonMain/ButtonMain'
 import FormEditTask from './FormEditTask/FormEditTask'
 
 const Task = function ({ id, name, isChecked, checkTask, editTask, removeTask }) {
-    // const formEditTaskDiv = useRef(null)
     const [isEditing, setIsEditing] = useState(false)
 
     const openEditForm = () => {
         setIsEditing(true)
     }
-
     return (
         < >
             {
                 (isEditing)
                 && <div
-                    // ref={ formEditTaskDiv }
                     className={ `${styles.formEditTaskDiv}` }>
                     <FormEditTask
                         id={ id }
@@ -41,11 +38,12 @@ const Task = function ({ id, name, isChecked, checkTask, editTask, removeTask })
                     />
                     <label
                         className={ `form-check-label ${(isChecked === true) ? "isChecked" : ""}` }
-                        style={ { userSelect: "none", cursor: 'pointer' } }
+                        style={ { userSelect: "none", cursor: 'pointer', wordBreak: 'break-all' } }
                         onClick={ () => checkTask(id) }
                         htmlFor="flexCheckChecked">
                         { name }
                     </label>
+
                 </div>
                 <ButtonTask
                     name="/"

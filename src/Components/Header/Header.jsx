@@ -15,20 +15,25 @@ const Header = function ({ clearAllChecked, addTask, lists, displayTasksOfList }
         <header>
             <div className="d-flex justify-content-between align-items-center py-2">
                 <div></div>
-                <h1 className={ `${styles.h1}` }>
+                <h1
+                    className={ `${styles.h1}` }
+                    style={ { wordBreak: 'break-all' } }
+                >
                     { lists.find((list) => list.id === displayTasksOfList).name }
                 </h1>
-                <RemoveAllTask
-                    name="Clear done"
-                    color="outline-danger"
-                    onClick={ () => clearAllChecked() }
-                />
+                <div className="ms-1">
+                    <RemoveAllTask
+                        name="Clear done"
+                        color="outline-danger"
+                        onClick={ () => clearAllChecked() }
+                    />
+                </div>
             </div>
             <FormNewTask
                 inputValueNewItem={ inputValueNewTask }
                 setInputValueNewItem={ setInputValueNewTask }
                 handlerAddItem={ handlerAddTask }
-                placeholderItem="new task..."
+                placeholderItem="New task.."
             />
         </header>
     )

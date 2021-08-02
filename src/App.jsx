@@ -25,6 +25,7 @@ function App() {
   const [displayTasksOfList, setDisplayTasksOfList] = useState(lists[0].id)
 
   const addTask = (nameNewTask) => {
+    nameNewTask = nameNewTask.replace(/[^a-ż0-9 ~`!@#$%^&*()_+{}|:"<>?\-=[\]\\;',./]/gi, '').trim()
     if (nameNewTask) setLists(() =>
       lists.reduce((acc, list) => {
         if (list.id === displayTasksOfList) {

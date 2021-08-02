@@ -19,20 +19,21 @@ const Sidebar = function ({ lists, setLists, displayTasksOfList, setDisplayTasks
         , [useEffectAssistant])
 
     const addList = (nameNewList) => {
-        setLists([{
-            id: Math.random(),
-            name: nameNewList,
-            tasks: []
-        }, ...lists])
-        toggleSidebar()
+        nameNewList = nameNewList.replace(/[^a-ż0-9 ~`!@#$%^&*()_+{}|:"<>?\-=[\]\\;',./]/gi, '').trim()
+        if (nameNewList) {
+            setLists([{
+                id: Math.random(),
+                name: nameNewList,
+                tasks: []
+            }, ...lists])
+            toggleSidebar()
+        }
     }
 
     const handlerAddList = () => {
-        if (inputValueNewList) {
-            addList(inputValueNewList)
-            setInputValueNewList('')
-            setUseEffectAssistant(useEffectAssistant + 1)
-        }
+        addList(inputValueNewList)
+        setInputValueNewList('')
+        setUseEffectAssistant(useEffectAssistant + 1)
     }
 
     const removeList = (id) => {
@@ -67,7 +68,7 @@ const Sidebar = function ({ lists, setLists, displayTasksOfList, setDisplayTasks
                     inputValueNewItem={ inputValueNewList }
                     setInputValueNewItem={ setInputValueNewList }
                     handlerAddItem={ handlerAddList }
-                    placeholderItem="new list"
+                    placeholderItem="New list.."
                 />
                 <Lists
                     lists={ lists }
