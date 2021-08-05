@@ -1,7 +1,15 @@
 import { useState } from 'react'
-import styles from './Header.module.css'
+import styled from 'styled-components'
+// Components
 import FormNewTask from '../Form/FormNewItem'
 import RemoveAllTask from '../UI/ButtonMain/ButtonMain'
+// Styled components
+const NameListH1 = styled.h1`
+    word-break: break-all;
+    @media (max-width: 768px) {
+        margin-left: 40px;
+    }
+`
 
 const Header = function ({ clearAllChecked, addTask, lists, displayTasksOfList }) {
     const [inputValueNewTask, setInputValueNewTask] = useState('')
@@ -15,12 +23,9 @@ const Header = function ({ clearAllChecked, addTask, lists, displayTasksOfList }
         <header>
             <div className="d-flex justify-content-between align-items-center py-2">
                 <div></div>
-                <h1
-                    className={ `${styles.h1}` }
-                    style={ { wordBreak: 'break-all' } }
-                >
+                <NameListH1>
                     { lists.find((list) => list.id === displayTasksOfList).name }
-                </h1>
+                </NameListH1>
                 <div className="ms-1">
                     <RemoveAllTask
                         name="Clear done"

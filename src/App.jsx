@@ -1,9 +1,29 @@
 import { useState, useEffect } from 'react'
-import styles from './App.module.css'
+import styled from 'styled-components'
 // Components
 import Sidebar from './Components/Sidebar/Sidebar'
 import Header from './Components/Header/Header'
 import Tasks from './Components/Tasks/Tasks'
+// Styled components
+const AppDiv = styled.div`
+  background-color: #282c34;
+  color: white;
+  min-height: 100Vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+`
+const HeaderTaskDiv = styled.div`
+  background-color: #3c4455;
+  width: 600px;
+  margin: 10px 0;
+  @media (max-width: 768px) {
+    .todoAppContainer{
+      width: 100%;
+      min-height: 100vh;
+      margin: 0;
+    }
+`
 
 function App() {
   const defaultLists = [
@@ -96,15 +116,14 @@ function App() {
   )
 
   return (
-    <div className={ `${styles.appDiv}` }>
+    <AppDiv>
       <Sidebar
         lists={ lists }
         setLists={ setLists }
         displayTasksOfList={ displayTasksOfList }
         setDisplayTasksOfList={ setDisplayTasksOfList }
       />
-      <div
-        className={ ` ${styles.todoAppContainer} p-2` }>
+      <HeaderTaskDiv className="p-2">
         <Header
           clearAllChecked={ clearAllChecked }
           addTask={ addTask }
@@ -118,8 +137,8 @@ function App() {
           editTask={ editTask }
           removeTask={ removeTask }
         />
-      </div>
-    </div>
+      </HeaderTaskDiv>
+    </AppDiv>
   )
 }
 

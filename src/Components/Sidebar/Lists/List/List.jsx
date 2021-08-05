@@ -11,7 +11,11 @@ const List = function ({ id, name, removeList, setDisplayTasksOfList }) {
                 { name }
             </button>
             <div className="ms-1">
-                <Button name="x" color="outline-danger" onClick={ () => removeList(id) } />
+                <Button
+                    name="x"
+                    color="outline-danger"
+                    onClick={ () => removeList(id) }
+                />
             </div>
         </div>
     )

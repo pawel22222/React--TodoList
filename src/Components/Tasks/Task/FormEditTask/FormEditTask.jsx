@@ -1,6 +1,16 @@
 import { useState, useEffect, useRef } from 'react'
-import styles from './FormEditTask.module.css'
+import styled from 'styled-components'
 import ButtonFormEdit from '../../../UI/ButtonMain/ButtonMain'
+// Styled components
+const EditTaskDiv = styled.div`
+    position: absolute;
+    top: calc(50% - 40px);
+    left: calc(50% - 150px);
+    background-color: #282C34;
+    border: 1px solid rgb(94, 94, 94);
+    z-index: 1;
+`
+
 
 const FormEditTask = function ({ id, name, isEditing, setIsEditing, editTask }) {
     const [inputEdit, setInputEdit] = useState(name)
@@ -15,8 +25,8 @@ const FormEditTask = function ({ id, name, isEditing, setIsEditing, editTask }) 
         , [isEditing])
 
     return (
-        <div
-            className={ `${styles.editTaskDiv} d-flex flex-column p-1` }
+        <EditTaskDiv
+            className="d-flex flex-column p-1"
             onKeyDown={ (e) => (e.key === 'Escape') && setIsEditing(false) }
         >
             <header className={ `d-flex justify-content-between mb-1 ` }>
@@ -42,7 +52,7 @@ const FormEditTask = function ({ id, name, isEditing, setIsEditing, editTask }) 
                     onClick={ () => handlerSaveEdit() }
                 />
             </div>
-        </div>
+        </EditTaskDiv>
     )
 }
 

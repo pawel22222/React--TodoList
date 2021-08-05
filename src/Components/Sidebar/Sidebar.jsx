@@ -1,9 +1,30 @@
 import { useState, useRef, useEffect } from 'react'
-import styles from './Sidebar.module.css'
-
+import styled from 'styled-components'
+// Components
 import ButtonSlideSidebar from '../UI/ButtonMain/ButtonMain'
 import FormNewList from '../Form/FormNewItem'
 import Lists from './Lists/Lists'
+// Styled components
+const HamburgerDiv = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+`
+const Aside = styled.aside`
+    background-color: #282c34;
+    border-right: 1px solid rgb(94, 94, 94);
+    min-height: 100vh;
+    max-height: 100vh;
+    overflow: auto;
+    width: 250px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(-250px);
+    z-index: 1;
+    transition: transform .2s ease-in-out;
+`
 
 const Sidebar = function ({ lists, setLists, displayTasksOfList, setDisplayTasksOfList }) {
     const sidebarDiv = useRef(null)
@@ -50,18 +71,18 @@ const Sidebar = function ({ lists, setLists, displayTasksOfList, setDisplayTasks
 
     return (
         <>
-            <div className={ `${styles.hamburgerDiv} m-2` }>
+            <HamburgerDiv className="m-2">
                 <ButtonSlideSidebar
                     name="="
                     color="primary"
                     onClick={ toggleSidebar }
                 />
-            </div>
-            <aside
+            </HamburgerDiv>
+            <Aside
                 ref={ sidebarDiv }
-                className={ `${styles.sidebarDiv} p-2` }
+                className="p-2"
             >
-                <header className={ `m-1 pt-2 ` }>
+                <header className="m-1 pt-2">
                     <h4 className="text-center">My lists</h4>
                 </header>
                 <FormNewList
@@ -75,7 +96,7 @@ const Sidebar = function ({ lists, setLists, displayTasksOfList, setDisplayTasks
                     removeList={ removeList }
                     setDisplayTasksOfList={ setDisplayTasksOfList }
                 />
-            </aside>
+            </Aside>
         </>
     )
 }

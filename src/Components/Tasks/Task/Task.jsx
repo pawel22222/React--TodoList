@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import styles from './Task.module.css'
 import ButtonTask from '../../UI/ButtonMain/ButtonMain'
 import FormEditTask from './FormEditTask/FormEditTask'
 
@@ -13,8 +12,7 @@ const Task = function ({ id, name, isChecked, checkTask, editTask, removeTask })
         < >
             {
                 (isEditing)
-                && <div
-                    className={ `${styles.formEditTaskDiv}` }>
+                && <div>
                     <FormEditTask
                         id={ id }
                         name={ name }
@@ -23,13 +21,13 @@ const Task = function ({ id, name, isChecked, checkTask, editTask, removeTask })
                     />
                 </div>
             }
-            <div className="taskDiv d-flex justify-content-between align-items-center ">
+            <div className="taskDiv d-flex">
                 <div
-                    className={ "form-check w-100 h-100 py-2" }
+                    className={ "form-check w-100 h-100 py-2 " }
                     style={ { cursor: 'pointer' } }
                     onClick={ () => checkTask(id) } >
                     <input
-                        className="form-check-input"
+                        className="form-check-input "
                         style={ { cursor: 'pointer' } }
                         type="checkbox"
                         value="zrobic zakupy"
@@ -45,17 +43,19 @@ const Task = function ({ id, name, isChecked, checkTask, editTask, removeTask })
                     </label>
 
                 </div>
-                <ButtonTask
-                    name="/"
-                    color="outline-warning"
-                    onClick={ () => openEditForm() }
-                />
-                <span className="pe-1"></span>
-                <ButtonTask
-                    name="X"
-                    color="outline-danger"
-                    onClick={ () => removeTask(id) }
-                />
+                <div className="d-flex align-items-start pt-2">
+                    <ButtonTask
+                        name="/"
+                        color="outline-warning"
+                        onClick={ () => openEditForm() }
+                    />
+                    <span className="pe-1"></span>
+                    <ButtonTask
+                        name="X"
+                        color="outline-danger"
+                        onClick={ () => removeTask(id) }
+                    />
+                </div>
             </div>
         </>
     )

@@ -1,8 +1,0 @@
-.buttonMain{
-    text-decoration: none !important;
-    font-weight: bold;
-}
-
-.buttonMain:focus {
-    box-shadow: none;
-}
