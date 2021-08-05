@@ -27,8 +27,8 @@ const Aside = styled.aside`
 `
 
 const Sidebar = function ({ lists, setLists, displayTasksOfList, setDisplayTasksOfList }) {
-    const sidebarDiv = useRef(null)
-    const toggleSidebar = () => sidebarDiv.current.classList.toggle('slide')
+    const aside = useRef(null)
+    const toggleSidebar = () => aside.current.classList.toggle('slide')
 
     const [inputValueNewList, setInputValueNewList] = useState('')
 
@@ -79,7 +79,7 @@ const Sidebar = function ({ lists, setLists, displayTasksOfList, setDisplayTasks
                 />
             </HamburgerDiv>
             <Aside
-                ref={ sidebarDiv }
+                ref={ aside }
                 className="p-2"
             >
                 <header className="m-1 pt-2">
