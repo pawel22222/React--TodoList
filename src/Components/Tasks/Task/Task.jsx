@@ -2,7 +2,14 @@ import { useState } from 'react'
 import ButtonTask from '../../UI/ButtonMain/ButtonMain'
 import FormEditTask from './FormEditTask/FormEditTask'
 
-const Task = function ({ id, name, isChecked, checkTask, editTask, removeTask }) {
+const Task = function ({
+    id,
+    name,
+    isChecked,
+    checkTask,
+    editTask,
+    removeTask
+}) {
     const [isEditing, setIsEditing] = useState(false)
 
     const openEditForm = () => {

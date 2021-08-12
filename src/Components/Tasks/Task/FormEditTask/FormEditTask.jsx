@@ -1,18 +1,28 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 import styled from 'styled-components'
+import { theme } from '../../../../theme/theme'
+import { ThemeContext } from '../../../../context/ThemeContext'
+
 import ButtonFormEdit from '../../../UI/ButtonMain/ButtonMain'
+
 // Styled components
 const EditTaskDiv = styled.div`
     position: absolute;
     top: calc(50% - 40px);
     left: calc(50% - 150px);
-    background-color: #282C34;
-    border: 1px solid rgb(94, 94, 94);
+    background-color: ${({ mode }) => theme[mode].bg1};
+    border: 1px solid ${({ mode }) => theme[mode].border};
     z-index: 1;
 `
 
-
-const FormEditTask = function ({ id, name, isEditing, setIsEditing, editTask }) {
+const FormEditTask = function ({
+    id,
+    name,
+    isEditing,
+    setIsEditing,
+    editTask
+}) {
+    const { mode } = useContext(ThemeContext)
     const [inputEdit, setInputEdit] = useState(name)
 
     const handlerSaveEdit = () => {
@@ -26,6 +36,7 @@ const FormEditTask = function ({ id, name, isEditing, setIsEditing, editTask }) 
 
     return (
         <EditTaskDiv
+            mode={ mode }
             className="d-flex flex-column p-1"
             onKeyDown={ (e) => (e.key === 'Escape') && setIsEditing(false) }
         >

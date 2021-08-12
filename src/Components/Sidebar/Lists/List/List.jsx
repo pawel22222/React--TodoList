@@ -1,15 +1,40 @@
+import { useContext } from 'react'
+import styled from 'styled-components'
 import Button from '../../../UI/ButtonMain/ButtonMain'
 
-const List = function ({ id, name, removeList, setDisplayTasksOfList }) {
+
+import { theme } from '../../../../theme/theme'
+import { ThemeContext } from '../../../../context/ThemeContext'
+
+const ButtonStyled = styled.button`
+    color: ${({ mode }) => theme[mode].text};
+    :hover{
+        color: ${({ mode }) => theme[mode].textHover};
+    }
+
+`
+
+const List = function ({
+    id,
+    name,
+    removeList,
+    setDisplayTasksOfList
+}) {
+    const { mode } = useContext(ThemeContext)
+
     return (
         <div className="d-flex justify-content-between mb-2">
-            <button
+            <ButtonStyled
+                mode={ mode }
                 className="btn btn-link link-light p-0"
                 onClick={ () => setDisplayTasksOfList(id) }
-                style={ { userSelect: "none", wordBreak: 'break-all' } }
+                style={ {
+                    userSelect: "none",
+                    wordBreak: 'break-all'
+                } }
             >
                 { name }
-            </button>
+            </ButtonStyled>
             <div className="ms-1">
                 <Button
                     name="x"

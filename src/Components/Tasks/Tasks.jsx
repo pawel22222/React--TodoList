@@ -1,7 +1,13 @@
 import Task from './Task/Task'
 import { useRef } from 'react'
 
-const Tasks = function ({ lists, displayTasksOfList, checkTask, editTask, removeTask }) {
+const Tasks = function ({
+    lists,
+    displayTasksOfList,
+    checkTask,
+    editTask,
+    removeTask
+}) {
 
     const displayList = lists.filter(list => list.id === displayTasksOfList)
 
@@ -36,8 +42,6 @@ const Tasks = function ({ lists, displayTasksOfList, checkTask, editTask, remove
                                 checkTask={ checkTask }
                                 editTask={ editTask }
                                 removeTask={ removeTask }
-                                // eslint-disable-next-line react/jsx-no-duplicate-props
-                                editTask={ editTask }
                             />
                         )
                     }
