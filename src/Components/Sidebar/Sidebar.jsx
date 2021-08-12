@@ -15,6 +15,7 @@ const HamburgerDiv = styled.div`
   left: 0;
   z-index: 2;
   top: 12px;
+  transition: transform .2s;
 `
 const Aside = styled.aside`
   background-color: ${({ mode }) => theme[mode].bg2};
@@ -44,9 +45,12 @@ const Sidebar = function ({
 
   const { mode } = useContext(ThemeContext)
 
-
+  const burgerRef = useRef(null)
   const aside = useRef(null)
-  const toggleSidebar = () => aside.current.classList.toggle('slide')
+  const toggleSidebar = () => {
+    aside.current.classList.toggle('slide')
+    burgerRef.current.classList.toggle('rotate180')
+  }
 
   const [inputValueNewList, setInputValueNewList] = useState('')
 
@@ -81,7 +85,7 @@ const Sidebar = function ({
       (lists[0].id === id)
         ? setDisplayTasksOfList(lists[1].id)
         : setDisplayTasksOfList(lists[0].id)
-      // setUseEffectAssistant(useEffectAssistant + 1)
+      setUseEffectAssistant(useEffectAssistant + 1)
       setLists(lists.filter((list) => list.id !== id))
     }
     else setLists(lists.filter((list) => list.id !== id))
@@ -89,13 +93,6 @@ const Sidebar = function ({
 
   return (
     <>
-      <HamburgerDiv className="m-2">
-        <ButtonSlideSidebar
-          name="="
-          color="primary"
-          onClick={ toggleSidebar }
-        />
-      </HamburgerDiv>
       <Aside
         mode={ mode }
         ref={ aside }
@@ -116,6 +113,14 @@ const Sidebar = function ({
           setDisplayTasksOfList={ setDisplayTasksOfList }
         />
       </Aside>
+      <HamburgerDiv className="m-2" ref={ burgerRef }>
+        <ButtonSlideSidebar
+          // { (aside.current.classList.contains('slide')) ? '<' : '>' }
+          name=">"
+          color="primary"
+          onClick={ toggleSidebar }
+        />
+      </HamburgerDiv>
     </>
   )
 }
