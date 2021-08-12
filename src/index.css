@@ -11,17 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.isChecked{
-  opacity: .4;
-  /* text-decoration: line-through; */
-}
-.displayNone{
-  display: none;
-}
-
-.slide{
-  transform: translateX(0) !important;
-}
+.isChecked{ opacity: .4; }
+.displayNone{ display: none; }
+.slide{ transform: translateX(0) !important; }
+.rotate180{ transform: rotateY(180deg); }
 
 ::-webkit-scrollbar {
   width: 12px;

@@ -2,7 +2,6 @@ import { useContext } from 'react'
 import styled from 'styled-components'
 import Button from '../../../UI/ButtonMain/ButtonMain'
 
-
 import { theme } from '../../../../theme/theme'
 import { ThemeContext } from '../../../../context/ThemeContext'
 

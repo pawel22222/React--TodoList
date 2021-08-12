@@ -9,7 +9,7 @@ import Button from '../UI/ButtonMain/ButtonMain'
 const NameListH1 = styled.h1`
     word-break: break-all;
     @media (max-width: 768px) {
-        margin-left: 40px;
+      margin-left: 35px;
     }
 `
 
@@ -31,7 +31,6 @@ const Header = function ({
   return (
     <header>
       <div className="d-flex justify-content-between align-items-center py-2">
-        <div></div>
         <NameListH1>
           { lists.find((list) => list.id === displayTasksOfList).name }
         </NameListH1>
