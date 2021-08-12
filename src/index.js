@@ -5,11 +5,15 @@ import reportWebVitals from './reportWebVitals'
 import App from './App'
 import './index.css'
 
+import ThemeProvider from './context/ThemeContext'
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root'),
+    <ThemeProvider>
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>
+    </ThemeProvider>,
+    document.getElementById('root'),
 )
 
 reportWebVitals()

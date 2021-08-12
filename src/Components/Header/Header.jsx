@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import styled from 'styled-components'
+import { ThemeContext } from '../../context/ThemeContext'
 // Components
 import FormNewTask from '../Form/FormNewItem'
-import RemoveAllTask from '../UI/ButtonMain/ButtonMain'
+import Button from '../UI/ButtonMain/ButtonMain'
+
 // Styled components
 const NameListH1 = styled.h1`
     word-break: break-all;
@@ -11,37 +13,50 @@ const NameListH1 = styled.h1`
     }
 `
 
-const Header = function ({ clearAllChecked, addTask, lists, displayTasksOfList }) {
-    const [inputValueNewTask, setInputValueNewTask] = useState('')
+const Header = function ({
+  clearAllChecked,
+  addTask,
+  lists,
+  displayTasksOfList,
+  changeTheme
+}) {
+  const { mode } = useContext(ThemeContext)
+  const [inputValueNewTask, setInputValueNewTask] = useState('')
 
-    const handlerAddTask = () => {
-        addTask(inputValueNewTask)
-        setInputValueNewTask('')
-    }
+  const handlerAddTask = () => {
+    addTask(inputValueNewTask)
+    setInputValueNewTask('')
+  }
 
-    return (
-        <header>
-            <div className="d-flex justify-content-between align-items-center py-2">
-                <div></div>
-                <NameListH1>
-                    { lists.find((list) => list.id === displayTasksOfList).name }
-                </NameListH1>
-                <div className="ms-1">
-                    <RemoveAllTask
-                        name="Clear done"
-                        color="outline-danger"
-                        onClick={ () => clearAllChecked() }
-                    />
-                </div>
-            </div>
-            <FormNewTask
-                inputValueNewItem={ inputValueNewTask }
-                setInputValueNewItem={ setInputValueNewTask }
-                handlerAddItem={ handlerAddTask }
-                placeholderItem="New task.."
-            />
-        </header>
-    )
+  return (
+    <header>
+      <div className="d-flex justify-content-between align-items-center py-2">
+        <div></div>
+        <NameListH1>
+          { lists.find((list) => list.id === displayTasksOfList).name }
+        </NameListH1>
+        <div>
+          <Button
+            name={ (mode === 'dark') ? 'Light' : 'Dark' }
+            color={ `outline-${(mode === 'dark') ? 'light' : 'dark'}` }
+            onClick={ () => changeTheme() }
+          />
+          <span className="ms-1"></span>
+          <Button
+            name="Clear done"
+            color="outline-danger"
+            onClick={ () => clearAllChecked() }
+          />
+        </div>
+      </div>
+      <FormNewTask
+        inputValueNewItem={ inputValueNewTask }
+        setInputValueNewItem={ setInputValueNewTask }
+        handlerAddItem={ handlerAddTask }
+        placeholderItem="New task.."
+      />
+    </header>
+  )
 }
 
 export default Header
