@@ -11,7 +11,6 @@ const ButtonStyled = styled.button`
     :hover{
         color: ${({ mode }) => theme[mode].textHover};
     }
-
 `
 
 const List = function ({
