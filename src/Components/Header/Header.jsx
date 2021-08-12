@@ -34,7 +34,7 @@ const Header = function ({
         <NameListH1>
           { lists.find((list) => list.id === displayTasksOfList).name }
         </NameListH1>
-        <div>
+        <div className="d-flex flex-nowrap">
           <Button
             name={ (mode === 'dark') ? 'Light' : 'Dark' }
             color={ `outline-${(mode === 'dark') ? 'light' : 'dark'}` }
