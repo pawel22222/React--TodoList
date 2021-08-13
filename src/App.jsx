@@ -136,12 +136,6 @@ function App() {
 
   return (
     <AppDiv mode={ mode }>
-      <Sidebar
-        lists={ lists }
-        setLists={ setLists }
-        displayTasksOfList={ displayTasksOfList }
-        setDisplayTasksOfList={ setDisplayTasksOfList }
-      />
       <HeaderTaskDiv mode={ mode } className="p-2">
         <Header
           clearAllChecked={ clearAllChecked }
@@ -158,6 +152,12 @@ function App() {
           removeTask={ removeTask }
         />
       </HeaderTaskDiv>
+      <Sidebar
+        lists={ lists }
+        setLists={ setLists }
+        displayTasksOfList={ displayTasksOfList }
+        setDisplayTasksOfList={ setDisplayTasksOfList }
+      />
     </AppDiv>
   )
 }

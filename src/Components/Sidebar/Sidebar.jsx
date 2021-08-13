@@ -7,6 +7,7 @@ import Lists from './Lists/Lists'
 
 import { theme } from '../../theme/theme'
 import { ThemeContext } from '../../context/ThemeContext'
+import Alert from '../UI/Alert/Alert'
 
 //#region Styled components
 const HamburgerDiv = styled.div`
@@ -42,6 +43,7 @@ const Sidebar = function ({
   displayTasksOfList,
   setDisplayTasksOfList
 }) {
+  let timeout = null
 
   const { mode } = useContext(ThemeContext)
 
@@ -56,6 +58,12 @@ const Sidebar = function ({
 
   // Info: State tylko po to aby useEffect wykonał się po wywołaniu funkcji handlerAddList
   const [useEffectAssistant, setUseEffectAssistant] = useState(1)
+  const [error, setError] = useState('')
+
+  const removeError = () => {
+    setError('')
+    clearTimeout(timeout)
+  }
 
   useEffect(() => setDisplayTasksOfList(lists[0].id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,7 +88,10 @@ const Sidebar = function ({
   }
 
   const removeList = (id) => {
-    if (lists.length <= 1) alert('the last list cannot be deleted')
+    if (lists.length <= 1) {
+      setError('The last list cannot be deleted')
+      timeout = setTimeout(() => setError(''), 5000)
+    }
     else if (id === displayTasksOfList) {
       (lists[0].id === id)
         ? setDisplayTasksOfList(lists[1].id)
@@ -93,6 +104,11 @@ const Sidebar = function ({
 
   return (
     <>
+      { error && <Alert
+        type="danger"
+        error={ error }
+        removeError={ removeError }
+      /> }
       <Aside
         mode={ mode }
         ref={ aside }
@@ -115,7 +131,6 @@ const Sidebar = function ({
       </Aside>
       <HamburgerDiv className="m-2" ref={ burgerRef }>
         <ButtonSlideSidebar
-          // { (aside.current.classList.contains('slide')) ? '<' : '>' }
           name=">"
           color="primary"
           onClick={ toggleSidebar }

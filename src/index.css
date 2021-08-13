@@ -12,7 +12,7 @@ code {
     monospace;
 }
 .isChecked{ opacity: .4; }
-.displayNone{ display: none; }
+.displayNone{ display: none !important; }
 .slide{ transform: translateX(0) !important; }
 .rotate180{ transform: rotateY(180deg); }
 
