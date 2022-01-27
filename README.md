@@ -2,17 +2,17 @@
 
 ![application view](https://user-images.githubusercontent.com/45629012/151392195-9757e3b1-652e-4be9-977f-d4901cd309cd.PNG)
 
-A todo list react app is available for viewing on https://psokolowski-react-todolist.netlify.app/
+Application is deployed on: https://psokolowski-react-todolist.netlify.app/
 
 ## Description
 
-Aplication allows you to create multiply and manage todo lists.
+Application allows you to create and manage multiple todo lists.
 
 Other features:
 
 - marking tasks as completed
 - editing tasks
-- button for deleting completed tasks
+- button for deleting all completed tasks
 - dark and light mode
 - saving data in localstorage
 
