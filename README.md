@@ -1,5 +1,7 @@
 # React--TodoList
 
+![application view](https://user-images.githubusercontent.com/45629012/151392195-9757e3b1-652e-4be9-977f-d4901cd309cd.PNG)
+
 A todo list react app is available for viewing on https://psokolowski-react-todolist.netlify.app/
 
 ## Description
