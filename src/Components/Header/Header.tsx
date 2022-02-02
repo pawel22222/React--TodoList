@@ -1,11 +1,13 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, FC } from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from '../../context/ThemeContext'
-// Components
-import FormNewTask from '../Form/FormNewItem'
-import Button from '../UI/ButtonMain/ButtonMain'
+import { ListType } from '../../global/Types';
 
-// Styled components
+
+
+import FormNewTask from '../Form/FormNewItem'
+import Button from '../UI/button/Button'
+
 const NameListH1 = styled.h1`
     word-break: break-all;
     @media (max-width: 768px) {
@@ -13,15 +15,25 @@ const NameListH1 = styled.h1`
     }
 `
 
-const Header = function ({
+type HeaderProps = {
+  clearAllChecked: () => void,
+  addTask: (taskName: string) => void,
+  lists: ListType[],
+  idOfDisplayList: number,
+  changeTheme: () => void
+}
+
+const Header: FC<HeaderProps> = ({
   clearAllChecked,
   addTask,
   lists,
-  displayTasksOfList,
-  changeTheme
-}) {
+  idOfDisplayList,
+  changeTheme,
+}) => {
   const { mode } = useContext(ThemeContext)
   const [inputValueNewTask, setInputValueNewTask] = useState('')
+
+  const currentList = lists.find((list: ListType) => list.id === idOfDisplayList)
 
   const handlerAddTask = () => {
     addTask(inputValueNewTask)
@@ -32,26 +44,30 @@ const Header = function ({
     <header>
       <div className="d-flex justify-content-between align-items-center py-2">
         <NameListH1>
-          { lists.find((list) => list.id === displayTasksOfList).name }
+          {currentList && currentList.name}
         </NameListH1>
+
         <div className="d-flex flex-nowrap">
           <Button
-            name={ (mode === 'dark') ? 'Light' : 'Dark' }
-            color={ `outline-${(mode === 'dark') ? 'light' : 'dark'}` }
-            onClick={ () => changeTheme() }
+            name={(mode === 'dark') ? 'Light' : 'Dark'}
+            color={`outline-${(mode === 'dark') ? 'light' : 'dark'}`}
+            onClick={() => changeTheme()}
           />
+
           <span className="ms-1"></span>
+
           <Button
             name="Clear done"
             color="outline-danger"
-            onClick={ () => clearAllChecked() }
+            onClick={() => clearAllChecked()}
           />
         </div>
       </div>
+
       <FormNewTask
-        inputValueNewItem={ inputValueNewTask }
-        setInputValueNewItem={ setInputValueNewTask }
-        handlerAddItem={ handlerAddTask }
+        inputValueNewItem={inputValueNewTask}
+        setInputValueNewItem={setInputValueNewTask}
+        handlerAddItem={handlerAddTask}
         placeholderItem="New task.."
       />
     </header>

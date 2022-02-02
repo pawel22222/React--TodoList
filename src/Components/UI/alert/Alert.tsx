@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import styled, { css } from 'styled-components'
 import { theme } from '../../../theme/theme'
 
@@ -36,7 +37,7 @@ const AlertDiv = styled.div`
         animation-duration: 5s;
         animation-timing-function: linear;
     }
-    ${({ type }) => type === 'danger' && css`
+    ${({ color }) => color === 'danger' && css`
             background-color: ${theme.alert.danger.bg1};
             color: ${theme.alert.danger.primary};
             border: 1px solid ${theme.alert.danger.primary};
@@ -45,7 +46,7 @@ const AlertDiv = styled.div`
             }
         `
     }
-    ${({ type }) => type === 'warning' && css`
+    ${({ color }) => color === 'warning' && css`
             background-color: ${theme.alert.warning.bg1};
             color: ${theme.alert.warning.primary};
             border: 1px solid ${theme.alert.warning.primary};
@@ -61,30 +62,37 @@ const Button = styled.button`
     margin-right: 5px;
     border-radius: 3px;
     background-color: rgba(0,0,0,0);
-    ${({ type }) => type === 'danger' && css`
+    ${({ color }) => color === 'danger' && css`
         color: ${theme.alert.danger.primary};
         border: 1px solid ${theme.alert.danger.primary};
-           
     `}
-    ${({ type }) => type === 'warning' && css`
+    
+    ${({ color }) => color === 'warning' && css`
         color: ${theme.alert.warning.primary};
         border: 4px solid ${theme.alert.warning.primary};
-           
     `}
 `
 
-export default function Alert({ type, error, removeError }) {
+type AlertProps = {
+    type: string,
+    error: string,
+    removeError: () => void
+}
+
+const Alert: FC<AlertProps> = ({ type, error, removeError }) => {
     return (
         <AlertDiv
-            type={ type }
+            color={type}
         >
             <Button
-                type={ type }
-                onClick={ removeError }
+                color={type}
+                onClick={removeError}
             >
                 X
             </Button>
-            { error }
+            {error}
         </AlertDiv>
     )
 }
+
+export default Alert

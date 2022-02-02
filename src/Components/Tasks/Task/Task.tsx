@@ -1,8 +1,17 @@
-import { useState } from 'react'
-import ButtonTask from '../../UI/ButtonMain/ButtonMain'
+import { FC, useState } from 'react'
+import ButtonTask from '../../UI/button/Button'
 import FormEditTask from './FormEditTask/FormEditTask'
 
-const Task = function ({
+type TaskProps = {
+    id: number,
+    name: string,
+    isChecked: boolean,
+    checkTask: (id: number) => void,
+    editTask: (id: number, text: string) => void,
+    removeTask: (id: number) => void
+}
+
+const Task: FC<TaskProps> = function ({
     id,
     name,
     isChecked,
@@ -21,32 +30,33 @@ const Task = function ({
                 (isEditing)
                 && <div>
                     <FormEditTask
-                        id={ id }
-                        name={ name }
-                        setIsEditing={ setIsEditing }
-                        editTask={ editTask }
+                        id={id}
+                        name={name}
+                        setIsEditing={setIsEditing}
+                        editTask={editTask}
+                        isEditing={isEditing}
                     />
                 </div>
             }
             <div className="taskDiv d-flex">
                 <div
-                    className={ "form-check w-100 h-100 py-2 " }
-                    style={ { cursor: 'pointer' } }
-                    onClick={ () => checkTask(id) } >
+                    className={"form-check w-100 h-100 py-2 "}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => checkTask(id)} >
                     <input
                         className="form-check-input "
-                        style={ { cursor: 'pointer' } }
+                        style={{ cursor: 'pointer' }}
                         type="checkbox"
                         value="zrobic zakupy"
-                        checked={ isChecked }
-                        onChange={ () => checkTask(id) }
+                        checked={isChecked}
+                        onChange={() => checkTask(id)}
                     />
                     <label
-                        className={ `form-check-label ${(isChecked === true) ? "isChecked" : ""}` }
-                        style={ { userSelect: "none", cursor: 'pointer', wordBreak: 'break-all' } }
-                        onClick={ () => checkTask(id) }
+                        className={`form-check-label ${(isChecked === true) ? "isChecked" : ""}`}
+                        style={{ userSelect: "none", cursor: 'pointer', wordBreak: 'break-all' }}
+                        onClick={() => checkTask(id)}
                         htmlFor="flexCheckChecked">
-                        { name }
+                        {name}
                     </label>
 
                 </div>
@@ -54,13 +64,13 @@ const Task = function ({
                     <ButtonTask
                         name="/"
                         color="outline-warning"
-                        onClick={ () => openEditForm() }
+                        onClick={() => openEditForm()}
                     />
                     <span className="pe-1"></span>
                     <ButtonTask
                         name="X"
                         color="outline-danger"
-                        onClick={ () => removeTask(id) }
+                        onClick={() => removeTask(id)}
                     />
                 </div>
             </div>

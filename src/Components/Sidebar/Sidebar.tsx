@@ -1,13 +1,18 @@
-import { useState, useRef, useEffect, useContext } from 'react'
-import styled from 'styled-components'
+import { useState, useRef, useEffect, useContext, FC } from 'react'
+import styled, { css } from 'styled-components'
 // Components
-import ButtonSlideSidebar from '../UI/ButtonMain/ButtonMain'
+import ButtonSlideSidebar from '../UI/button/Button'
 import FormNewList from '../Form/FormNewItem'
 import Lists from './Lists/Lists'
 
+import { ListType } from '../../global/Types';
 import { theme } from '../../theme/theme'
 import { ThemeContext } from '../../context/ThemeContext'
-import Alert from '../UI/Alert/Alert'
+import Alert from '../UI/alert/Alert'
+
+interface ModeProps {
+  mode: string
+}
 
 //#region Styled components
 const HamburgerDiv = styled.div`
@@ -18,9 +23,15 @@ const HamburgerDiv = styled.div`
   top: 12px;
   transition: transform .2s;
 `
-const Aside = styled.aside`
+const Aside = styled.aside<ModeProps>`
   background-color: ${({ mode }) => theme[mode].bg2};
   border-right: 1px solid ${({ mode }) => theme[mode].border};
+  
+  ${({ mode }) => mode === 'danger' && css`
+  color: ${theme.alert.danger.primary};
+  border: 1px solid ${theme.alert.danger.primary};
+  `}
+
   min-height: 100vh;
   max-height: 100vh;
   overflow: auto;
@@ -37,18 +48,24 @@ const Header = styled.header`
 `
 // #endregion
 
-const Sidebar = function ({
+type SidebarProps = {
+  lists: ListType[],
+  idOfDisplayList: number,
+  setLists: (newLists: ListType[]) => void,
+  setIdOfDisplayList: (newID: number) => void
+}
+
+const Sidebar: FC<SidebarProps> = function ({
   lists,
   setLists,
-  displayTasksOfList,
-  setDisplayTasksOfList
+  idOfDisplayList,
+  setIdOfDisplayList
 }) {
-  let timeout = null
-
   const { mode } = useContext(ThemeContext)
 
-  const burgerRef = useRef(null)
-  const aside = useRef(null)
+  const burgerRef = useRef<HTMLDivElement>(null!)
+  const aside = useRef<HTMLDivElement>(null!)
+
   const toggleSidebar = () => {
     aside.current.classList.toggle('slide')
     burgerRef.current.classList.toggle('rotate180')
@@ -56,21 +73,21 @@ const Sidebar = function ({
 
   const [inputValueNewList, setInputValueNewList] = useState('')
 
-  // Info: State tylko po to aby useEffect wykonał się po wywołaniu funkcji handlerAddList
   const [useEffectAssistant, setUseEffectAssistant] = useState(1)
   const [error, setError] = useState('')
 
   const removeError = () => {
     setError('')
-    clearTimeout(timeout)
   }
 
-  useEffect(() => setDisplayTasksOfList(lists[0].id)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    setIdOfDisplayList(lists[0].id)
+  }
     , [useEffectAssistant])
 
-  const addList = (nameNewList) => {
+  const addList = (nameNewList: string) => {
     nameNewList = nameNewList.replace(/[^a-ż0-9 ~`!@#$%^&*()_+{}|:"<>?\-=[\]\\;',./]/gi, '').trim()
+
     if (nameNewList) {
       setLists([{
         id: Math.random(),
@@ -87,15 +104,14 @@ const Sidebar = function ({
     setUseEffectAssistant(useEffectAssistant + 1)
   }
 
-  const removeList = (id) => {
+  const removeList = (id: number) => {
     if (lists.length <= 1) {
       setError('The last list cannot be deleted')
-      timeout = setTimeout(() => setError(''), 5000)
     }
-    else if (id === displayTasksOfList) {
+    else if (id === idOfDisplayList) {
       (lists[0].id === id)
-        ? setDisplayTasksOfList(lists[1].id)
-        : setDisplayTasksOfList(lists[0].id)
+        ? setIdOfDisplayList(lists[1].id)
+        : setIdOfDisplayList(lists[0].id)
       setUseEffectAssistant(useEffectAssistant + 1)
       setLists(lists.filter((list) => list.id !== id))
     }
@@ -104,36 +120,36 @@ const Sidebar = function ({
 
   return (
     <>
-      { error && <Alert
+      {error && <Alert
         type="danger"
-        error={ error }
-        removeError={ removeError }
-      /> }
+        error={error}
+        removeError={removeError}
+      />}
       <Aside
-        mode={ mode }
-        ref={ aside }
+        mode={mode}
+        ref={aside}
         className="p-2"
       >
         <Header className="m-1 pt-2">
           <h4 className="text-center">My lists</h4>
         </Header>
         <FormNewList
-          inputValueNewItem={ inputValueNewList }
-          setInputValueNewItem={ setInputValueNewList }
-          handlerAddItem={ handlerAddList }
+          inputValueNewItem={inputValueNewList}
+          setInputValueNewItem={setInputValueNewList}
+          handlerAddItem={handlerAddList}
           placeholderItem="New list.."
         />
         <Lists
-          lists={ lists }
-          removeList={ removeList }
-          setDisplayTasksOfList={ setDisplayTasksOfList }
+          lists={lists}
+          removeList={removeList}
+          setIdOfDisplayList={setIdOfDisplayList}
         />
       </Aside>
-      <HamburgerDiv className="m-2" ref={ burgerRef }>
+      <HamburgerDiv className="m-2" ref={burgerRef}>
         <ButtonSlideSidebar
           name=">"
           color="primary"
-          onClick={ toggleSidebar }
+          onClick={toggleSidebar}
         />
       </HamburgerDiv>
     </>

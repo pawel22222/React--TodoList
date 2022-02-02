@@ -1,43 +1,54 @@
-import { useContext } from 'react'
+import { FC, useContext } from 'react'
 import styled from 'styled-components'
-import Button from '../../../UI/ButtonMain/ButtonMain'
+import ButtonDiv from '../../../UI/button/Button'
 
 import { theme } from '../../../../theme/theme'
 import { ThemeContext } from '../../../../context/ThemeContext'
 
-const ButtonStyled = styled.button`
+type modeProps = {
+    mode: string
+}
+
+const ButtonStyled = styled.button<modeProps>`
     color: ${({ mode }) => theme[mode].text};
     :hover{
         color: ${({ mode }) => theme[mode].textHover};
     }
 `
 
-const List = function ({
+type ListProps = {
+    id: number,
+    name: string,
+    removeList: (id: number) => void,
+    setIdOfDisplayList: (newID: number) => void
+}
+
+const List: FC<ListProps> = function ({
     id,
     name,
     removeList,
-    setDisplayTasksOfList
+    setIdOfDisplayList
 }) {
     const { mode } = useContext(ThemeContext)
 
     return (
         <div className="d-flex justify-content-between mb-2">
             <ButtonStyled
-                mode={ mode }
+                mode={mode}
                 className="btn btn-link link-light p-0"
-                onClick={ () => setDisplayTasksOfList(id) }
-                style={ {
+                onClick={() => setIdOfDisplayList(id)}
+                style={{
                     userSelect: "none",
                     wordBreak: 'break-all'
-                } }
+                }}
             >
-                { name }
+                {name}
             </ButtonStyled>
             <div className="ms-1">
-                <Button
+                <ButtonDiv
                     name="x"
                     color="outline-danger"
-                    onClick={ () => removeList(id) }
+                    onClick={() => removeList(id)}
                 />
             </div>
         </div>

@@ -1,12 +1,16 @@
-import { useState, useEffect, useRef, useContext } from 'react'
+import { useState, useEffect, useRef, useContext, FC } from 'react'
 import styled from 'styled-components'
 import { theme } from '../../../../theme/theme'
 import { ThemeContext } from '../../../../context/ThemeContext'
 
-import ButtonFormEdit from '../../../UI/ButtonMain/ButtonMain'
+import ButtonFormEdit from '../../../UI/button/Button'
+
+type modeProps = {
+    mode: string
+}
 
 // Styled components
-const EditTaskDiv = styled.div`
+const EditTaskDiv = styled.div<modeProps>`
     position: absolute;
     top: calc(50% - 40px);
     left: calc(50% - 150px);
@@ -15,12 +19,20 @@ const EditTaskDiv = styled.div`
     z-index: 1;
 `
 
-const FormEditTask = function ({
+type FormEditTaskProps = {
+    id: number,
+    name: string,
+    isEditing: boolean,
+    setIsEditing: (isEditing: boolean) => void,
+    editTask: (id: number, text: string) => void,
+}
+
+const FormEditTask: FC<FormEditTaskProps> = function ({
     id,
     name,
     isEditing,
     setIsEditing,
-    editTask
+    editTask,
 }) {
     const { mode } = useContext(ThemeContext)
     const [inputEdit, setInputEdit] = useState(name)
@@ -30,37 +42,40 @@ const FormEditTask = function ({
         setIsEditing(false)
     }
 
-    const input = useRef(null)
+    const input = useRef<HTMLInputElement>(null!)
+
     useEffect(() => input.current.focus()
         , [isEditing])
 
     return (
         <EditTaskDiv
-            mode={ mode }
+            mode={mode}
             className="d-flex flex-column p-1"
-            onKeyDown={ (e) => (e.key === 'Escape') && setIsEditing(false) }
+            onKeyDown={(e) => (e.key === 'Escape') && setIsEditing(false)}
         >
-            <header className={ `d-flex justify-content-between mb-1 ` }>
+            <header className={`d-flex justify-content-between mb-1 `}>
                 <h4 className="me-2 my-auto">Edit task </h4>
                 <ButtonFormEdit
-                    onClick={ () => setIsEditing(false) }
+                    onClick={() => setIsEditing(false)}
                     name="x"
                     color="outline-danger"
                 />
             </header>
+
             <div className="d-flex">
                 <input
-                    ref={ input }
+                    ref={input}
                     className="form-control me-1"
                     type="text"
-                    value={ inputEdit }
-                    onChange={ (e) => setInputEdit(e.target.value) }
-                    onKeyDown={ (e) => e.key === 'Enter' && handlerSaveEdit() }
+                    value={inputEdit}
+                    onChange={(e) => setInputEdit(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handlerSaveEdit()}
                 />
+
                 <ButtonFormEdit
                     name="save"
                     color="outline-success"
-                    onClick={ () => handlerSaveEdit() }
+                    onClick={() => handlerSaveEdit()}
                 />
             </div>
         </EditTaskDiv>

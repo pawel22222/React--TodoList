@@ -1,4 +1,4 @@
-export const theme = {
+export const theme: any = {
     dark: {
         bg1: '#282c34',
         bg2: '#3c4455',
