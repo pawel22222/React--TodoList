@@ -2,7 +2,7 @@ import Task from './Task/Task'
 import { FC, useRef } from 'react'
 import { ListType } from '../../global/Types'
 
-type TasksProps = {
+type Props = {
     lists: ListType[],
     idOfDisplayList: number,
     checkTask: (id: number) => void,
@@ -10,7 +10,7 @@ type TasksProps = {
     removeTask: (id: number) => void
 }
 
-const Tasks: FC<TasksProps> = function ({
+const Tasks: FC<Props> = function ({
     lists,
     idOfDisplayList,
     checkTask,
@@ -34,7 +34,7 @@ const Tasks: FC<TasksProps> = function ({
         doneTasksDiv.current.classList.toggle('displayNone')
 
     return (
-        <div>
+        <>
             <div>
                 {todoTasks.length !== 0 &&
                     <h4 onClick={() => rollUpTodoTasksDiv()}
@@ -42,6 +42,7 @@ const Tasks: FC<TasksProps> = function ({
                         To do ({todoTasks.length})
                     </h4>
                 }
+
                 <div ref={todoTasksDiv}>
                     {
                         todoTasks.map((task) =>
@@ -56,6 +57,7 @@ const Tasks: FC<TasksProps> = function ({
                     }
                 </div>
             </div>
+
             <div>
                 {doneTasks.length !== 0 &&
                     <h4 onClick={() => rollUpDoneTasksDiv()}
@@ -63,19 +65,22 @@ const Tasks: FC<TasksProps> = function ({
                         Complited ({doneTasks.length})
                     </h4>
                 }
-                <div ref={doneTasksDiv}>{
-                    doneTasks.map((task) =>
-                        <Task
-                            key={task.id}
-                            {...task}
-                            checkTask={checkTask}
-                            removeTask={removeTask}
-                            editTask={editTask}
-                        />
-                    )
-                }</div>
+
+                <div ref={doneTasksDiv}>
+                    {
+                        doneTasks.map((task) =>
+                            <Task
+                                key={task.id}
+                                {...task}
+                                checkTask={checkTask}
+                                removeTask={removeTask}
+                                editTask={editTask}
+                            />
+                        )
+                    }
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 

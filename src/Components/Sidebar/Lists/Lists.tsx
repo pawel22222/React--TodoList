@@ -2,13 +2,13 @@ import List from './List/List'
 import { ListType } from '../../../global/Types';
 import { FC } from 'react';
 
-type ListsProps = {
+type Props = {
     lists: ListType[],
     removeList: (id: number) => void,
     setIdOfDisplayList: (newID: number) => void
 }
 
-const Lists: FC<ListsProps> = function ({ lists, removeList, setIdOfDisplayList }) {
+const Lists: FC<Props> = function ({ lists, removeList, setIdOfDisplayList }) {
 
     return (
         <div className="d-flex flex-column">

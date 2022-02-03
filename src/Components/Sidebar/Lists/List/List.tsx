@@ -4,26 +4,23 @@ import ButtonDiv from '../../../UI/button/Button'
 
 import { theme } from '../../../../theme/theme'
 import { ThemeContext } from '../../../../context/ThemeContext'
+import { ModeProps } from '../../../../global/Types'
 
-type modeProps = {
-    mode: string
-}
-
-const ButtonStyled = styled.button<modeProps>`
+const ButtonStyled = styled.button<ModeProps>`
     color: ${({ mode }) => theme[mode].text};
     :hover{
         color: ${({ mode }) => theme[mode].textHover};
     }
 `
 
-type ListProps = {
+type Props = {
     id: number,
     name: string,
     removeList: (id: number) => void,
     setIdOfDisplayList: (newID: number) => void
 }
 
-const List: FC<ListProps> = function ({
+const List: FC<Props> = function ({
     id,
     name,
     removeList,

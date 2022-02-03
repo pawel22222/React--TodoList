@@ -5,16 +5,13 @@ import Sidebar from './Components/Sidebar/Sidebar'
 import Header from './Components/Header/Header'
 import Tasks from './Components/Tasks/Tasks'
 
-import { ListType } from './global/Types';
+import { ListType, ModeProps } from './global/Types';
 import { theme } from './theme/theme'
 import { ThemeContext } from './context/ThemeContext'
 
-interface ModeProps {
-  mode: string
-}
 
 // #region Styled Components
-const AppDiv = styled.div<ModeProps>`
+const AppContainer = styled.div<ModeProps>`
   background-color: ${({ mode }) => theme[mode].bg1};
   color: ${({ mode }) => theme[mode].text};
   min-height: 100Vh;
@@ -22,7 +19,7 @@ const AppDiv = styled.div<ModeProps>`
   justify-content: center;
   align-items: flex-start;
 `
-const HeaderTaskDiv = styled.div<ModeProps>`
+const Main = styled.main<ModeProps>`
   background-color: ${({ mode }) => theme[mode].bg2};
   margin: 10px 0;
   width: 600px;
@@ -150,8 +147,8 @@ const App: FC = () => {
   const changeTheme = () => setMode()
 
   return (
-    <AppDiv mode={mode}>
-      <HeaderTaskDiv mode={mode} className="p-2">
+    <AppContainer mode={mode}>
+      <Main mode={mode} className="p-2">
         <Header
           clearAllChecked={clearAllChecked}
           addTask={addTask}
@@ -159,6 +156,7 @@ const App: FC = () => {
           idOfDisplayList={idOfDisplayList}
           changeTheme={changeTheme}
         />
+
         <Tasks
           lists={lists}
           idOfDisplayList={idOfDisplayList}
@@ -166,14 +164,15 @@ const App: FC = () => {
           editTask={editTask}
           removeTask={removeTask}
         />
-      </HeaderTaskDiv>
+      </Main>
+
       <Sidebar
         lists={lists}
         setLists={setLists}
         idOfDisplayList={idOfDisplayList}
         setIdOfDisplayList={setIdOfDisplayList}
       />
-    </AppDiv>
+    </AppContainer>
   )
 }
 

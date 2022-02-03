@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import ButtonTask from '../../UI/button/Button'
 import FormEditTask from './FormEditTask/FormEditTask'
 
-type TaskProps = {
+type Props = {
     id: number,
     name: string,
     isChecked: boolean,
@@ -11,7 +11,7 @@ type TaskProps = {
     removeTask: (id: number) => void
 }
 
-const Task: FC<TaskProps> = function ({
+const Task: FC<Props> = function ({
     id,
     name,
     isChecked,

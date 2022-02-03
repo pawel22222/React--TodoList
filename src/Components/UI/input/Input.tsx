@@ -1,13 +1,13 @@
 import { FC } from 'react';
 
-type InputProps = {
+type Props = {
     nameNewItem: string,
     setNameNewItem: (e: string) => void,
     handlerAddItem: () => void,
     placeholderItem: string
 }
 
-const Input: FC<InputProps> = function ({ nameNewItem, setNameNewItem, handlerAddItem, placeholderItem }) {
+const Input: FC<Props> = function ({ nameNewItem, setNameNewItem, handlerAddItem, placeholderItem }) {
 
     return (
         <input

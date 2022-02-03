@@ -4,13 +4,10 @@ import { theme } from '../../../../theme/theme'
 import { ThemeContext } from '../../../../context/ThemeContext'
 
 import ButtonFormEdit from '../../../UI/button/Button'
-
-type modeProps = {
-    mode: string
-}
+import { ModeProps } from '../../../../global/Types'
 
 // Styled components
-const EditTaskDiv = styled.div<modeProps>`
+const EditTaskDiv = styled.div<ModeProps>`
     position: absolute;
     top: calc(50% - 40px);
     left: calc(50% - 150px);
@@ -19,7 +16,7 @@ const EditTaskDiv = styled.div<modeProps>`
     z-index: 1;
 `
 
-type FormEditTaskProps = {
+type Props = {
     id: number,
     name: string,
     isEditing: boolean,
@@ -27,7 +24,7 @@ type FormEditTaskProps = {
     editTask: (id: number, text: string) => void,
 }
 
-const FormEditTask: FC<FormEditTaskProps> = function ({
+const FormEditTask: FC<Props> = function ({
     id,
     name,
     isEditing,

@@ -24,8 +24,6 @@ export const theme: any = {
             bg1: '#FFF3CD',
             bg2: '#e7dcb8',
             primary: '#D89D2B'
-
         },
-
     }
 }

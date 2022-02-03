@@ -2,14 +2,14 @@ import { FC } from 'react'
 import Button from '../UI/button/Button'
 import Input from '../UI/input/Input'
 
-type FormNewItemProps = {
+type Props = {
     inputValueNewItem: string,
     placeholderItem: string
     setInputValueNewItem: (inputValueNewTask: string) => void,
     handlerAddItem: () => void,
 }
 
-const FormNewItem: FC<FormNewItemProps> = ({
+const FormNewItem: FC<Props> = ({
     inputValueNewItem,
     setInputValueNewItem,
     handlerAddItem,

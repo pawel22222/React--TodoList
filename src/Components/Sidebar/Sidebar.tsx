@@ -1,18 +1,14 @@
 import { useState, useRef, useEffect, useContext, FC } from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 // Components
 import ButtonSlideSidebar from '../UI/button/Button'
 import FormNewList from '../Form/FormNewItem'
 import Lists from './Lists/Lists'
 
-import { ListType } from '../../global/Types';
+import { ListType, ModeProps } from '../../global/Types';
 import { theme } from '../../theme/theme'
 import { ThemeContext } from '../../context/ThemeContext'
 import Alert from '../UI/alert/Alert'
-
-interface ModeProps {
-  mode: string
-}
 
 //#region Styled components
 const HamburgerDiv = styled.div`
@@ -22,16 +18,13 @@ const HamburgerDiv = styled.div`
   z-index: 2;
   top: 12px;
   transition: transform .2s;
+  @media (min-width: 1200px) {
+    display: none;
+  }
 `
 const Aside = styled.aside<ModeProps>`
   background-color: ${({ mode }) => theme[mode].bg2};
   border-right: 1px solid ${({ mode }) => theme[mode].border};
-  
-  ${({ mode }) => mode === 'danger' && css`
-  color: ${theme.alert.danger.primary};
-  border: 1px solid ${theme.alert.danger.primary};
-  `}
-
   min-height: 100vh;
   max-height: 100vh;
   overflow: auto;
@@ -42,20 +35,23 @@ const Aside = styled.aside<ModeProps>`
   transform: translateX(-250px);
   z-index: 1;
   transition: transform .2s ease-in-out;
+  @media (min-width: 1200px) {
+    transform: translateX(0);
+  }
 `
 const Header = styled.header`
   padding: 10px 0;
 `
 // #endregion
 
-type SidebarProps = {
+type Props = {
   lists: ListType[],
   idOfDisplayList: number,
   setLists: (newLists: ListType[]) => void,
   setIdOfDisplayList: (newID: number) => void
 }
 
-const Sidebar: FC<SidebarProps> = function ({
+const Sidebar: FC<Props> = function ({
   lists,
   setLists,
   idOfDisplayList,
@@ -125,6 +121,7 @@ const Sidebar: FC<SidebarProps> = function ({
         error={error}
         removeError={removeError}
       />}
+
       <Aside
         mode={mode}
         ref={aside}
@@ -133,18 +130,21 @@ const Sidebar: FC<SidebarProps> = function ({
         <Header className="m-1 pt-2">
           <h4 className="text-center">My lists</h4>
         </Header>
+
         <FormNewList
           inputValueNewItem={inputValueNewList}
           setInputValueNewItem={setInputValueNewList}
           handlerAddItem={handlerAddList}
           placeholderItem="New list.."
         />
+
         <Lists
           lists={lists}
           removeList={removeList}
           setIdOfDisplayList={setIdOfDisplayList}
         />
       </Aside>
+
       <HamburgerDiv className="m-2" ref={burgerRef}>
         <ButtonSlideSidebar
           name=">"

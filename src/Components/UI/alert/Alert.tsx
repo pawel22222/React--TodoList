@@ -73,13 +73,13 @@ const Button = styled.button`
     `}
 `
 
-type AlertProps = {
+type Props = {
     type: string,
     error: string,
     removeError: () => void
 }
 
-const Alert: FC<AlertProps> = ({ type, error, removeError }) => {
+const Alert: FC<Props> = ({ type, error, removeError }) => {
     return (
         <AlertDiv
             color={type}

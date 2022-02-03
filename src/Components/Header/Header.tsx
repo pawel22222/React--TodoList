@@ -15,7 +15,7 @@ const NameListH1 = styled.h1`
     }
 `
 
-type HeaderProps = {
+type Props = {
   clearAllChecked: () => void,
   addTask: (taskName: string) => void,
   lists: ListType[],
@@ -23,7 +23,7 @@ type HeaderProps = {
   changeTheme: () => void
 }
 
-const Header: FC<HeaderProps> = ({
+const Header: FC<Props> = ({
   clearAllChecked,
   addTask,
   lists,

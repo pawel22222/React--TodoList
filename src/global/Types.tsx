@@ -1,3 +1,12 @@
+export enum ThemeMode {
+    Dark = 'dark',
+    Light = 'light'
+}
+
+export type ModeProps = {
+    mode: ThemeMode
+}
+
 export type TaskType = {
     id: number,
     name: string,

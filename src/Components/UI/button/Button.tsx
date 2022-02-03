@@ -7,14 +7,14 @@ const StyledButton = styled.button`
     font-weight: bold;
     :focus{ box-shadow: none; }
 `
-type ButtonProps = {
+type Props = {
     name: string,
     color: string,
     onClick: () => void,
     style?: {}
 }
 
-const Button: FC<ButtonProps> = ({ name, color, onClick }) => {
+const Button: FC<Props> = ({ name, color, onClick }) => {
     return (
         <StyledButton
             className={`btn  btn-${color} btn-sm  p-1 px-2`}
