@@ -6,7 +6,7 @@ Application is deployed on: https://psokolowski-react-todolist.netlify.app/
 
 ## Description
 
-Application allows you to create and manage multiple todo lists.
+Application allows you to create and manage multiple todo lists. 
 
 Other features:
 
@@ -20,6 +20,7 @@ Other features:
 
 ### Dependencies
 
+- TypeScript 4
 - React 17
 - Bootstrap 5
 - Styled Components 5
