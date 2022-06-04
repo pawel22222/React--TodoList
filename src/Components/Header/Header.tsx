@@ -6,8 +6,9 @@ import { ListType } from '../../global/Types'
 import FormNewTask from '../Form/FormNewItem'
 import Button from '../UI/button/Button'
 
-const NameListH1 = styled.h1`
+const ListNameH1 = styled.h1`
   word-break: break-all;
+  user-select: none;
   @media (max-width: 768px) {
     margin-left: 35px;
   }
@@ -32,7 +33,7 @@ const Header: FC<Props> = ({
   const [inputValueNewTask, setInputValueNewTask] = useState('')
 
   const currentList = lists.find(
-    (list: ListType) => list.id === idOfDisplayList
+    (list: ListType) => list.id === idOfDisplayList,
   )
 
   function handlerAddTask() {
@@ -42,20 +43,20 @@ const Header: FC<Props> = ({
 
   return (
     <header>
-      <div className="d-flex justify-content-between align-items-center py-2">
-        <NameListH1>{currentList && currentList.name}</NameListH1>
+      <div className='d-flex justify-content-between align-items-center py-2'>
+        <ListNameH1>{currentList && currentList.name}</ListNameH1>
 
-        <div className="d-flex flex-nowrap">
+        <div className='d-flex flex-nowrap'>
           <Button
             name={mode === 'dark' ? 'Light' : 'Dark'}
             color={`outline-${mode === 'dark' ? 'light' : 'dark'}`}
             onClick={() => changeTheme()}
           />
-          <span className="ms-1"></span>
+          <span className='ms-1'></span>
 
           <Button
-            name="Clear done"
-            color="outline-danger"
+            name='Clear done'
+            color='outline-danger'
             onClick={() => clearAllChecked()}
           />
         </div>
@@ -65,7 +66,7 @@ const Header: FC<Props> = ({
         inputValueNewItem={inputValueNewTask}
         setInputValueNewItem={setInputValueNewTask}
         handlerAddItem={handlerAddTask}
-        placeholderItem="New task.."
+        placeholderItem='New task..'
       />
     </header>
   )

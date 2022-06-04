@@ -122,7 +122,9 @@ const Sidebar: FC<Props> = function ({
 
       <Aside mode={mode} ref={aside} className='p-2'>
         <Header className='m-1 pt-2'>
-          <h4 className='text-center'>My lists</h4>
+          <h4 className='text-center' style={{ userSelect: 'none' }}>
+            My lists
+          </h4>
         </Header>
 
         <FormNewList

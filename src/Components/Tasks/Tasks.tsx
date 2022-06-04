@@ -37,7 +37,7 @@ const Tasks: FC<Props> = function ({
         {todoTasks.length !== 0 && (
           <h4
             onClick={() => rollUpTodoTasksDiv()}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: 'pointer', userSelect: 'none' }}
           >
             To do ({todoTasks.length})
           </h4>
@@ -60,7 +60,7 @@ const Tasks: FC<Props> = function ({
         {doneTasks.length !== 0 && (
           <h4
             onClick={() => rollUpDoneTasksDiv()}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: 'pointer', userSelect: 'none' }}
           >
             Complited ({doneTasks.length})
           </h4>

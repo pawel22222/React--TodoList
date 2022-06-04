@@ -24,6 +24,7 @@ const Task: FC<Props> = function ({
   const openEditForm = () => {
     setIsEditing(true)
   }
+
   return (
     <>
       {isEditing && (
@@ -51,10 +52,9 @@ const Task: FC<Props> = function ({
             checked={isChecked}
             onChange={() => checkTask(id)}
           />
+
           <label
-            className={`form-check-label ${
-              isChecked === true ? 'isChecked' : ''
-            }`}
+            className={`form-check-label ${isChecked && 'isChecked'}`}
             style={{
               userSelect: 'none',
               cursor: 'pointer',
@@ -66,13 +66,16 @@ const Task: FC<Props> = function ({
             {name}
           </label>
         </div>
+
         <div className='d-flex align-items-start pt-2'>
           <ButtonTask
             name='/'
             color='outline-warning'
             onClick={() => openEditForm()}
           />
+
           <span className='pe-1'></span>
+
           <ButtonTask
             name='X'
             color='outline-danger'
