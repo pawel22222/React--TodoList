@@ -1,25 +1,23 @@
 import { useState, useContext, FC } from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from '../../context/ThemeContext'
-import { ListType } from '../../global/Types';
-
-
+import { ListType } from '../../global/Types'
 
 import FormNewTask from '../Form/FormNewItem'
 import Button from '../UI/button/Button'
 
 const NameListH1 = styled.h1`
-    word-break: break-all;
-    @media (max-width: 768px) {
-      margin-left: 35px;
-    }
+  word-break: break-all;
+  @media (max-width: 768px) {
+    margin-left: 35px;
+  }
 `
 
 type Props = {
-  clearAllChecked: () => void,
-  addTask: (taskName: string) => void,
-  lists: ListType[],
-  idOfDisplayList: number,
+  clearAllChecked: () => void
+  addTask: (taskName: string) => void
+  lists: ListType[]
+  idOfDisplayList: number
   changeTheme: () => void
 }
 
@@ -33,9 +31,11 @@ const Header: FC<Props> = ({
   const { mode } = useContext(ThemeContext)
   const [inputValueNewTask, setInputValueNewTask] = useState('')
 
-  const currentList = lists.find((list: ListType) => list.id === idOfDisplayList)
+  const currentList = lists.find(
+    (list: ListType) => list.id === idOfDisplayList
+  )
 
-  const handlerAddTask = () => {
+  function handlerAddTask() {
     addTask(inputValueNewTask)
     setInputValueNewTask('')
   }
@@ -43,17 +43,14 @@ const Header: FC<Props> = ({
   return (
     <header>
       <div className="d-flex justify-content-between align-items-center py-2">
-        <NameListH1>
-          {currentList && currentList.name}
-        </NameListH1>
+        <NameListH1>{currentList && currentList.name}</NameListH1>
 
         <div className="d-flex flex-nowrap">
           <Button
-            name={(mode === 'dark') ? 'Light' : 'Dark'}
-            color={`outline-${(mode === 'dark') ? 'light' : 'dark'}`}
+            name={mode === 'dark' ? 'Light' : 'Dark'}
+            color={`outline-${mode === 'dark' ? 'light' : 'dark'}`}
             onClick={() => changeTheme()}
           />
-
           <span className="ms-1"></span>
 
           <Button

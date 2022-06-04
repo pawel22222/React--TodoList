@@ -2,11 +2,11 @@
 
 ![application view](https://user-images.githubusercontent.com/45629012/151392195-9757e3b1-652e-4be9-977f-d4901cd309cd.PNG)
 
-Application is deployed on: https://psokolowski-react-todolist.netlify.app/
+Application is deployed on: <https://psokolowski-react-todolist.netlify.app/>
 
 ## Description
 
-Application inspired by google tasks allows you to create and manage multiple todo lists. 
+Application inspired by google tasks allows you to create and manage multiple todo lists.
 
 Other features:
 

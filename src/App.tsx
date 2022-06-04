@@ -5,16 +5,15 @@ import Sidebar from './Components/Sidebar/Sidebar'
 import Header from './Components/Header/Header'
 import Tasks from './Components/Tasks/Tasks'
 
-import { ListType, ModeProps } from './global/Types';
+import { ListType, ModeProps } from './global/Types'
 import { theme } from './theme/theme'
 import { ThemeContext } from './context/ThemeContext'
-
 
 // #region Styled Components
 const AppContainer = styled.div<ModeProps>`
   background-color: ${({ mode }) => theme[mode].bg1};
   color: ${({ mode }) => theme[mode].text};
-  min-height: 100Vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -37,14 +36,15 @@ const App: FC = () => {
   const defaultLists: ListType[] = [
     {
       id: 1,
-      name: "DEFAULT TODO LIST",
-      tasks: []
-    }
+      name: 'DEFAULT TODO LIST',
+      tasks: [],
+    },
   ]
 
   const getLocalStorage = localStorage.getItem('listsLocalStorage') || ''
 
-  const listsFromStorageOrDefault: ListType[] = JSON.parse(getLocalStorage) || defaultLists
+  const listsFromStorageOrDefault: ListType[] =
+    JSON.parse(getLocalStorage) || defaultLists
 
   const [lists, setLists] = useState(listsFromStorageOrDefault)
 
@@ -65,16 +65,17 @@ const App: FC = () => {
           acc.push({
             id: list.id,
             name: list.name,
-            tasks: [{
-              id: Math.random(),
-              name: nameNewTask,
-              isChecked: false
-            }, ...list.tasks]
+            tasks: [
+              {
+                id: Math.random(),
+                name: nameNewTask,
+                isChecked: false,
+              },
+              ...list.tasks,
+            ],
           })
           return acc
-        }
-
-        else {
+        } else {
           acc.push(list)
           return acc
         }
@@ -91,12 +92,12 @@ const App: FC = () => {
       return lists.map((list) => {
         if (list.id === idOfDisplayList) {
           return {
-            ...list, tasks: list.tasks
+            ...list,
+            tasks: list.tasks
               .map((task) =>
-                (task.id === id)
-                  ? { ...task, isChecked: !task.isChecked }
-                  : task)
-              .sort((a, b) => Number(a.isChecked) - Number(b.isChecked))
+                task.id === id ? { ...task, isChecked: !task.isChecked } : task,
+              )
+              .sort((a, b) => Number(a.isChecked) - Number(b.isChecked)),
           }
         } else return list
       })
@@ -106,29 +107,31 @@ const App: FC = () => {
   }
 
   const removeTask = (id: number) => {
-    setLists(lists.map((list) => {
-      if (list.id === idOfDisplayList)
-        return {
-          ...list, tasks: list.tasks
-            .filter((task) => task.id !== id)
-        }
-      else return list
-    }))
+    setLists(
+      lists.map((list) => {
+        if (list.id === idOfDisplayList)
+          return {
+            ...list,
+            tasks: list.tasks.filter((task) => task.id !== id),
+          }
+        else return list
+      }),
+    )
   }
 
   const editTask = (id: number, newNameTask: string) => {
-    setLists(lists.map((list) => {
-      if (list.id === idOfDisplayList) {
-        return {
-          ...list, tasks: list.tasks
-            .map((task) =>
-              (task.id === id)
-                ? { ...task, name: newNameTask }
-                : task
-            )
-        }
-      } else return list
-    }))
+    setLists(
+      lists.map((list) => {
+        if (list.id === idOfDisplayList) {
+          return {
+            ...list,
+            tasks: list.tasks.map((task) =>
+              task.id === id ? { ...task, name: newNameTask } : task,
+            ),
+          }
+        } else return list
+      }),
+    )
   }
 
   const clearAllChecked = () => {
@@ -136,11 +139,11 @@ const App: FC = () => {
       lists.map((list) => {
         if (list.id === idOfDisplayList) {
           return {
-            ...list, tasks: list.tasks
-              .filter((task) => task.isChecked === false)
+            ...list,
+            tasks: list.tasks.filter((task) => task.isChecked === false),
           }
         } else return list
-      })
+      }),
     )
   }
 
@@ -148,7 +151,7 @@ const App: FC = () => {
 
   return (
     <AppContainer mode={mode}>
-      <Main mode={mode} className="p-2">
+      <Main mode={mode} className='p-2'>
         <Header
           clearAllChecked={clearAllChecked}
           addTask={addTask}
