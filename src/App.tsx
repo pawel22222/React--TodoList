@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, FC } from 'react'
 import styled from 'styled-components'
 
-import Sidebar from './Components/Sidebar/Sidebar'
+import Nav from './Components/Nav/Nav'
 import Header from './Components/Header/Header'
 import Tasks from './Components/Tasks/Tasks'
 
@@ -154,6 +154,13 @@ const App: FC = () => {
   return (
     <AppContainer mode={mode}>
       <Main mode={mode}>
+        <Nav
+          lists={lists}
+          setLists={setLists}
+          idOfDisplayList={idOfDisplayList}
+          setIdOfDisplayList={setIdOfDisplayList}
+        />
+
         <Header
           clearAllChecked={clearAllChecked}
           addTask={addTask}
@@ -170,13 +177,6 @@ const App: FC = () => {
           removeTask={removeTask}
         />
       </Main>
-
-      <Sidebar
-        lists={lists}
-        setLists={setLists}
-        idOfDisplayList={idOfDisplayList}
-        setIdOfDisplayList={setIdOfDisplayList}
-      />
     </AppContainer>
   )
 }

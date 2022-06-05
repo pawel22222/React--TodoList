@@ -1,7 +1,6 @@
-import { useState, useRef, useEffect, useContext, FC } from 'react'
+import { useState, useEffect, useContext, FC } from 'react'
 import styled from 'styled-components'
 // Components
-import ButtonSlideSidebar from '../UI/button/Button'
 import FormNewList from '../Form/FormNewItem'
 import Lists from './Lists/Lists'
 
@@ -11,36 +10,11 @@ import { ThemeContext } from '../../context/ThemeContext'
 import Alert from '../UI/alert/Alert'
 
 // #region Styled components
-const HamburgerDiv = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  top: 12px;
-  transition: transform 0.2s;
-  @media (min-width: 1200px) {
-    display: none;
-  }
-`
-const Aside = styled.aside<ModeProps>`
+const NavDiv = styled.nav<ModeProps>`
   background-color: ${({ mode }) => theme[mode].bg2};
-  border-right: 1px solid ${({ mode }) => theme[mode].border};
-  min-height: 100vh;
-  max-height: 100vh;
+  border-bottom: 1px solid ${({ mode }) => theme[mode].border};
   overflow: auto;
-  width: 250px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: translateX(-250px);
-  z-index: 1;
-  transition: transform 0.2s ease-in-out;
-  @media (min-width: 1200px) {
-    transform: translateX(0);
-  }
-`
-const Header = styled.header`
-  padding: 10px 0;
+  width: 100%;
 `
 // #endregion
 
@@ -51,7 +25,7 @@ type Props = {
   setIdOfDisplayList: (newID: number) => void
 }
 
-const Sidebar: FC<Props> = function ({
+const Nav: FC<Props> = function ({
   lists,
   setLists,
   idOfDisplayList,
@@ -59,16 +33,7 @@ const Sidebar: FC<Props> = function ({
 }) {
   const { mode } = useContext(ThemeContext)
 
-  const burgerRef = useRef<HTMLDivElement>(null)
-  const aside = useRef<HTMLDivElement>(null)
-
-  const toggleSidebar = () => {
-    aside.current?.classList.toggle('slide')
-    burgerRef.current?.classList.toggle('rotate180')
-  }
-
   const [inputValueNewList, setInputValueNewList] = useState('')
-
   const [useEffectAssistant, setUseEffectAssistant] = useState(1)
   const [error, setError] = useState('')
 
@@ -87,14 +52,13 @@ const Sidebar: FC<Props> = function ({
 
     if (nameNewList) {
       setLists([
+        ...lists,
         {
           id: Math.random(),
           name: nameNewList,
           tasks: [],
         },
-        ...lists,
       ])
-      toggleSidebar()
     }
   }
 
@@ -123,13 +87,7 @@ const Sidebar: FC<Props> = function ({
     <>
       {error && <Alert type='danger' error={error} removeError={removeError} />}
 
-      <Aside mode={mode} ref={aside} className='p-2'>
-        <Header className='m-1 pt-2'>
-          <h4 className='text-center' style={{ userSelect: 'none' }}>
-            My lists
-          </h4>
-        </Header>
-
+      <NavDiv mode={mode} className='p-2'>
         <FormNewList
           inputValueNewItem={inputValueNewList}
           setInputValueNewItem={setInputValueNewList}
@@ -142,13 +100,9 @@ const Sidebar: FC<Props> = function ({
           removeList={removeList}
           setIdOfDisplayList={setIdOfDisplayList}
         />
-      </Aside>
-
-      <HamburgerDiv className='m-2' ref={burgerRef}>
-        <ButtonSlideSidebar name='>' color='primary' onClick={toggleSidebar} />
-      </HamburgerDiv>
+      </NavDiv>
     </>
   )
 }
 
-export default Sidebar
+export default Nav

@@ -10,7 +10,6 @@ const ListNameH1 = styled.h1`
   word-break: break-all;
   user-select: none;
   @media (max-width: 768px) {
-    margin-left: 35px;
   }
 `
 

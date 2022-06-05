@@ -3,10 +3,12 @@ import { FC, useContext } from 'react'
 import { ThemeContext } from '../../../context/ThemeContext'
 import styled from 'styled-components'
 import { theme } from '../../../theme/theme'
-import ButtonDiv from '../../UI/button/Button'
+import Button from '../../UI/button/Button'
 
 const ButtonStyled = styled.button<ModeProps>`
   color: ${({ mode }) => theme[mode].text};
+  user-select: none;
+  word-break: break-all;
   :hover {
     color: ${({ mode }) => theme[mode].textHover};
   }
@@ -22,23 +24,19 @@ const Lists: FC<Props> = function ({ lists, removeList, setIdOfDisplayList }) {
   const { mode } = useContext(ThemeContext)
 
   return (
-    <div className='d-flex flex-column'>
-      {lists.map((list) => (
-        <div key={list.id} className='d-flex justify-content-between mb-2'>
+    <div className='d-flex'>
+      {lists.map((list: ListType) => (
+        <div key={list.id} className='d-flex me-2'>
           <ButtonStyled
             mode={mode}
-            className='btn btn-link link-light p-0'
+            className='btn btn-link link-light p-0 '
             onClick={() => setIdOfDisplayList(list.id)}
-            style={{
-              userSelect: 'none',
-              wordBreak: 'break-all',
-            }}
           >
             {list.name}
           </ButtonStyled>
 
           <div className='ms-1'>
-            <ButtonDiv
+            <Button
               name='x'
               color='outline-danger'
               onClick={() => removeList(list.id)}
@@ -46,6 +44,14 @@ const Lists: FC<Props> = function ({ lists, removeList, setIdOfDisplayList }) {
           </div>
         </div>
       ))}
+
+      <Button
+        name='+ New list'
+        color='outline-primary'
+        onClick={() => {
+          return
+        }}
+      />
     </div>
   )
 }
