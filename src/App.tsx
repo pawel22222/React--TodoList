@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Nav from './Components/Nav/Nav'
 import Header from './Components/Header/Header'
 import Tasks from './Components/Tasks/Tasks'
+import FormNewTask from './Components/Form/FormNewTask'
 
 import { ListType, ModeProps } from './global/Types'
 import { theme } from './theme/theme'
@@ -34,6 +35,8 @@ const Main = styled.main<ModeProps>`
 
 const App: FC = () => {
   const { mode, setMode } = useContext(ThemeContext)
+
+  const changeTheme = () => setMode()
 
   const defaultLists: ListType[] = [
     {
@@ -149,7 +152,13 @@ const App: FC = () => {
     )
   }
 
-  const changeTheme = () => setMode()
+  const [inputValueNewTask, setInputValueNewTask] = useState('')
+  const [isEditingTask, setIsEditingTask] = useState(false)
+
+  function handlerAddTask() {
+    addTask(inputValueNewTask)
+    setInputValueNewTask('')
+  }
 
   return (
     <AppContainer mode={mode}>
@@ -175,7 +184,18 @@ const App: FC = () => {
           checkTask={checkTask}
           editTask={editTask}
           removeTask={removeTask}
+          isEditingTask={isEditingTask}
+          setIsEditingTask={setIsEditingTask}
         />
+
+        {!isEditingTask && (
+          <FormNewTask
+            inputValueNewTask={inputValueNewTask}
+            setInputValueNewTask={setInputValueNewTask}
+            handlerAddTask={handlerAddTask}
+            placeholderTask='New task'
+          />
+        )}
       </Main>
     </AppContainer>
   )

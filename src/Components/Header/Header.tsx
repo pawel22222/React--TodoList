@@ -1,9 +1,8 @@
-import { useState, useContext, FC } from 'react'
+import { useContext, FC } from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from '../../context/ThemeContext'
 import { ListType } from '../../global/Types'
 
-import FormNewTask from '../Form/FormNewItem'
 import Button from '../UI/button/Button'
 
 const ListNameH1 = styled.h1`
@@ -23,22 +22,15 @@ type Props = {
 
 const Header: FC<Props> = ({
   clearAllChecked,
-  addTask,
   lists,
   idOfDisplayList,
   changeTheme,
 }) => {
   const { mode } = useContext(ThemeContext)
-  const [inputValueNewTask, setInputValueNewTask] = useState('')
 
   const currentList = lists.find(
     (list: ListType) => list.id === idOfDisplayList,
   )
-
-  function handlerAddTask() {
-    addTask(inputValueNewTask)
-    setInputValueNewTask('')
-  }
 
   return (
     <header className='p-2'>
@@ -60,13 +52,6 @@ const Header: FC<Props> = ({
           />
         </div>
       </div>
-
-      <FormNewTask
-        inputValueNewItem={inputValueNewTask}
-        setInputValueNewItem={setInputValueNewTask}
-        handlerAddItem={handlerAddTask}
-        placeholderItem='New task..'
-      />
     </header>
   )
 }

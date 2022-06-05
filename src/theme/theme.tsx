@@ -4,8 +4,8 @@ type themeType = {
 
 export const theme: themeType = {
   dark: {
-    bg1: '#343a45',
-    bg2: '#3c4455',
+    bg1: '#3c4455',
+    bg2: '#343a45',
     text: '#ffffff',
     textHover: '#b4b4b4',
     border: 'rgb(94, 94, 94)',

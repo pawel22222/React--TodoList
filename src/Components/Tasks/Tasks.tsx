@@ -8,14 +8,17 @@ type Props = {
   checkTask: (id: number) => void
   editTask: (id: number, text: string) => void
   removeTask: (id: number) => void
+  isEditingTask: boolean
+  setIsEditingTask: (isEditingTask: boolean) => void
 }
-
 const Tasks: FC<Props> = function ({
   lists,
   idOfDisplayList,
   checkTask,
   editTask,
   removeTask,
+  isEditingTask,
+  setIsEditingTask,
 }) {
   const displayList = lists.filter((list) => list.id === idOfDisplayList)
 
@@ -52,6 +55,8 @@ const Tasks: FC<Props> = function ({
               checkTask={checkTask}
               editTask={editTask}
               removeTask={removeTask}
+              isEditingTask={isEditingTask}
+              setIsEditingTask={setIsEditingTask}
             />
           ))}
         </div>
@@ -76,6 +81,8 @@ const Tasks: FC<Props> = function ({
               checkTask={checkTask}
               removeTask={removeTask}
               editTask={editTask}
+              isEditingTask={isEditingTask}
+              setIsEditingTask={setIsEditingTask}
             />
           ))}
         </div>

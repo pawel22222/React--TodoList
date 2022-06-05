@@ -4,18 +4,10 @@ import { theme } from '../../../../theme/theme'
 import { ThemeContext } from '../../../../context/ThemeContext'
 
 import Button from '../../../UI/button/Button'
+import Curtain from '../../../UI/Curtain/Curtain'
 import { ModeProps } from '../../../../global/Types'
 
 // Styled components
-const Curtain = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #000000a0;
-  z-index: 10;
-`
 const EditTaskDiv = styled.div<ModeProps>`
   position: relative;
   top: -25%;
@@ -63,7 +55,7 @@ const FormEditTask: FC<Props> = function ({
 
   return (
     <>
-      <Curtain onClick={() => setIsEditing(false)} />
+      <Curtain setIsEditing={setIsEditing} />
 
       <div
         style={{
@@ -84,11 +76,14 @@ const FormEditTask: FC<Props> = function ({
         >
           <header className={'d-flex justify-content-between mb-1 '}>
             <h4 className='me-2 my-auto'>Edit task </h4>
-            <Button
-              onClick={() => setIsEditing(false)}
-              name='x'
-              color='outline-danger'
-            />
+
+            <div>
+              <Button
+                onClick={() => setIsEditing(false)}
+                name='x'
+                color='outline-danger'
+              />
+            </div>
           </header>
 
           <div
@@ -101,7 +96,6 @@ const FormEditTask: FC<Props> = function ({
             <Textarea
               ref={spanEditable}
               rows={1}
-              // cols={15}
               maxLength={500}
               onChange={(e) => setInputEdit(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handlerSaveEdit()}

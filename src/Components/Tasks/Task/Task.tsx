@@ -1,4 +1,4 @@
-import { FC, useContext, useState, useEffect } from 'react'
+import { FC, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import ButtonTask from '../../UI/button/Button'
 import FormEditTask from './FormEditTask/FormEditTask'
@@ -13,10 +13,13 @@ type Props = {
   checkTask: (id: number) => void
   editTask: (id: number, text: string) => void
   removeTask: (id: number) => void
+  isEditingTask: boolean
+  setIsEditingTask: (isEditingTask: boolean) => void
 }
 
 const TaskDiv = styled.div<ModeProps>`
   display: flex;
+  align-items: center;
   padding: 0 5px;
   &:hover {
     background-color: ${({ mode }) => theme[mode].bg1};
@@ -30,66 +33,59 @@ const Task: FC<Props> = function ({
   checkTask,
   editTask,
   removeTask,
+  isEditingTask,
+  setIsEditingTask,
 }) {
   const { mode } = useContext(ThemeContext)
 
-  const [isEditing, setIsEditing] = useState(false)
-
   const openEditForm = () => {
-    setIsEditing(true)
+    setIsEditingTask(true)
   }
 
   useEffect(() => {
     function aaa() {
-      isEditing
+      isEditingTask
         ? (document.body.style.overflow = 'hidden')
         : (document.body.style.overflow = 'auto')
     }
 
     aaa()
-  }, [isEditing])
+  }, [isEditingTask])
 
   return (
     <TaskDiv mode={mode}>
-      {isEditing && (
-        <div>
-          <FormEditTask
-            id={id}
-            name={name}
-            setIsEditing={setIsEditing}
-            editTask={editTask}
-            isEditing={isEditing}
-          />
-        </div>
+      {isEditingTask && (
+        <FormEditTask
+          id={id}
+          name={name}
+          setIsEditing={setIsEditingTask}
+          editTask={editTask}
+          isEditing={isEditingTask}
+        />
       )}
 
+      <input
+        className='form-check-input '
+        style={{ cursor: 'pointer', padding: '10px' }}
+        type='checkbox'
+        value='zrobic zakupy'
+        checked={isChecked}
+        onChange={() => checkTask(id)}
+      />
+
       <div
-        style={{ cursor: 'pointer' }}
-        className={'form-check w-100 h-100 py-2 '}
+        className={`form-check-label ${
+          isChecked && 'isChecked'
+        } w-100 h-100 py-2 `}
+        style={{
+          userSelect: 'none',
+          cursor: 'pointer',
+          wordBreak: 'break-word',
+          marginLeft: '5px',
+        }}
         onClick={() => openEditForm()}
       >
-        <input
-          className='form-check-input '
-          style={{ cursor: 'pointer', padding: '10px' }}
-          type='checkbox'
-          value='zrobic zakupy'
-          checked={isChecked}
-          onChange={() => checkTask(id)}
-        />
-
-        <label
-          className={`form-check-label ${isChecked && 'isChecked'}`}
-          style={{
-            userSelect: 'none',
-            cursor: 'pointer',
-            wordBreak: 'break-word',
-            marginLeft: '5px',
-          }}
-          onClick={() => openEditForm()}
-          htmlFor='flexCheckChecked'
-        >
-          {name}
-        </label>
+        {name}
       </div>
 
       <div className='d-flex align-items-center ms-2'>
