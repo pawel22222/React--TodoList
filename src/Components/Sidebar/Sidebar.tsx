@@ -105,8 +105,11 @@ const Sidebar: FC<Props> = function ({
   }
 
   const removeList = (id: number) => {
-    if (lists.length <= 1) {
+    if (lists.length <= 1 && !error) {
       setError('The last list cannot be deleted')
+      setTimeout(() => {
+        setError('')
+      }, 5000)
     } else if (id === idOfDisplayList) {
       lists[0].id === id
         ? setIdOfDisplayList(lists[1].id)

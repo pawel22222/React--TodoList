@@ -22,8 +22,10 @@ const Main = styled.main<ModeProps>`
   background-color: ${({ mode }) => theme[mode].bg2};
   margin: 10px 0;
   width: 600px;
+  border: 1px gray solid;
   @media (max-width: 768px) {
     margin: 0;
+    padding: 0;
     width: 100%;
     min-height: 100vh;
   }
@@ -151,7 +153,7 @@ const App: FC = () => {
 
   return (
     <AppContainer mode={mode}>
-      <Main mode={mode} className='p-2'>
+      <Main mode={mode}>
         <Header
           clearAllChecked={clearAllChecked}
           addTask={addTask}

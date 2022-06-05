@@ -38,6 +38,7 @@ const Tasks: FC<Props> = function ({
           <h4
             onClick={() => rollUpTodoTasksDiv()}
             style={{ cursor: 'pointer', userSelect: 'none' }}
+            className='px-2'
           >
             To do ({todoTasks.length})
           </h4>
@@ -61,6 +62,7 @@ const Tasks: FC<Props> = function ({
           <h4
             onClick={() => rollUpDoneTasksDiv()}
             style={{ cursor: 'pointer', userSelect: 'none' }}
+            className='px-2'
           >
             Complited ({doneTasks.length})
           </h4>

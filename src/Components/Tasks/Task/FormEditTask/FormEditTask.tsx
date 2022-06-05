@@ -3,17 +3,35 @@ import styled from 'styled-components'
 import { theme } from '../../../../theme/theme'
 import { ThemeContext } from '../../../../context/ThemeContext'
 
-import ButtonFormEdit from '../../../UI/button/Button'
+import Button from '../../../UI/button/Button'
 import { ModeProps } from '../../../../global/Types'
 
 // Styled components
+const Curtain = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000a0;
+  z-index: 10;
+`
 const EditTaskDiv = styled.div<ModeProps>`
-  position: absolute;
-  top: calc(50% - 40px);
-  left: calc(50% - 150px);
-  background-color: ${({ mode }) => theme[mode].bg1};
+  position: relative;
+  top: -25%;
+  background-color: ${({ mode }) => theme[mode].bg2};
   border: 1px solid ${({ mode }) => theme[mode].border};
-  z-index: 1;
+  z-index: 20;
+  width: 95vw;
+  max-width: 700px;
+`
+const Textarea = styled.textarea`
+  background-color: transparent;
+  color: white;
+  resize: none;
+  overflow-y: auto;
+  width: 100%;
+  margin: 5px;
 `
 
 type Props = {
@@ -39,42 +57,81 @@ const FormEditTask: FC<Props> = function ({
     setIsEditing(false)
   }
 
-  const input = useRef<HTMLInputElement>(null)
+  const spanEditable = useRef<HTMLTextAreaElement>(null)
 
-  useEffect(() => input.current?.focus(), [isEditing])
+  useEffect(() => spanEditable.current?.focus(), [isEditing])
 
   return (
-    <EditTaskDiv
-      mode={mode}
-      className='d-flex flex-column p-1'
-      onKeyDown={(e) => e.key === 'Escape' && setIsEditing(false)}
-    >
-      <header className={'d-flex justify-content-between mb-1 '}>
-        <h4 className='me-2 my-auto'>Edit task </h4>
-        <ButtonFormEdit
-          onClick={() => setIsEditing(false)}
-          name='x'
-          color='outline-danger'
-        />
-      </header>
+    <>
+      <Curtain onClick={() => setIsEditing(false)} />
 
-      <div className='d-flex'>
-        <input
-          ref={input}
-          className='form-control me-1'
-          type='text'
-          value={inputEdit}
-          onChange={(e) => setInputEdit(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handlerSaveEdit()}
-        />
+      <div
+        style={{
+          position: 'absolute',
+          top: '0',
+          left: '0',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100vw',
+          height: '100vh',
+        }}
+      >
+        <EditTaskDiv
+          mode={mode}
+          className='d-flex flex-column p-1'
+          onKeyDown={(e) => e.key === 'Escape' && setIsEditing(false)}
+        >
+          <header className={'d-flex justify-content-between mb-1 '}>
+            <h4 className='me-2 my-auto'>Edit task </h4>
+            <Button
+              onClick={() => setIsEditing(false)}
+              name='x'
+              color='outline-danger'
+            />
+          </header>
 
-        <ButtonFormEdit
-          name='save'
-          color='outline-success'
-          onClick={() => handlerSaveEdit()}
-        />
+          <div
+            className='d-flex'
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Textarea
+              ref={spanEditable}
+              rows={1}
+              // cols={15}
+              maxLength={500}
+              onChange={(e) => setInputEdit(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handlerSaveEdit()}
+              onFocus={(e) => {
+                const textLen =
+                  typeof spanEditable.current?.innerHTML.length === 'number'
+                    ? spanEditable.current?.innerHTML.length
+                    : 0
+                spanEditable.current?.setSelectionRange(textLen, textLen)
+
+                e.target.style.height = e.target.scrollHeight + 2 + 'px'
+              }}
+              onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                e.target.style.height = '28px'
+                e.target.style.height = e.target.scrollHeight + 2 + 'px'
+              }}
+            >
+              {inputEdit}
+            </Textarea>
+            <div className='d-flex align-items-center'>
+              <Button
+                name='save'
+                color='outline-success'
+                onClick={() => handlerSaveEdit()}
+              />
+            </div>
+          </div>
+        </EditTaskDiv>
       </div>
-    </EditTaskDiv>
+    </>
   )
 }
 

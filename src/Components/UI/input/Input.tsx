@@ -5,6 +5,7 @@ type Props = {
   setNameNewItem: (e: string) => void
   handlerAddItem: () => void
   placeholderItem: string
+  maxLength?: number
 }
 
 const Input: FC<Props> = function ({
@@ -12,6 +13,7 @@ const Input: FC<Props> = function ({
   setNameNewItem,
   handlerAddItem,
   placeholderItem,
+  maxLength,
 }) {
   return (
     <input
@@ -21,6 +23,7 @@ const Input: FC<Props> = function ({
       value={nameNewItem}
       onKeyDown={(e) => e.key === 'Enter' && handlerAddItem()}
       onChange={(e) => setNameNewItem(e.target.value)}
+      maxLength={maxLength}
     />
   )
 }

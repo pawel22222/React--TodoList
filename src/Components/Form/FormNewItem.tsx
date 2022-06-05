@@ -22,6 +22,7 @@ const FormNewItem: FC<Props> = ({
         setNameNewItem={setInputValueNewItem}
         handlerAddItem={handlerAddItem}
         placeholderItem={placeholderItem}
+        maxLength={500}
       />
       <Button
         style={{ margin: '5px' }}

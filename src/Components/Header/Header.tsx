@@ -42,7 +42,7 @@ const Header: FC<Props> = ({
   }
 
   return (
-    <header>
+    <header className='p-2'>
       <div className='d-flex justify-content-between align-items-center py-2'>
         <ListNameH1>{currentList && currentList.name}</ListNameH1>
 
