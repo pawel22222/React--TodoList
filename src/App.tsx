@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, FC } from 'react'
+import { useState, useContext, FC } from 'react'
 import styled from 'styled-components'
 
 import Nav from './Components/Nav/Nav'
@@ -9,6 +9,7 @@ import FormNewTask from './Components/Form/FormNewTask'
 import { ListType, ModeProps } from './global/Types'
 import { theme } from './theme/theme'
 import { ThemeContext } from './context/ThemeContext'
+import { DataContext } from './context/DataContext'
 
 // #region Styled Components
 const AppContainer = styled.div<ModeProps>`
@@ -35,33 +36,11 @@ const Main = styled.main<ModeProps>`
 
 const App: FC = () => {
   const { mode, setMode } = useContext(ThemeContext)
+  const { lists, setLists } = useContext(DataContext)
 
   const changeTheme = () => setMode()
 
-  const defaultLists: ListType[] = [
-    {
-      id: 1,
-      name: 'DEFAULT TODO LIST',
-      tasks: [],
-    },
-  ]
-
-  const LISTS_LOCAL_STORAGE = 'listsLocalStorage'
-
-  if (!localStorage.getItem(LISTS_LOCAL_STORAGE)) {
-    localStorage.setItem(LISTS_LOCAL_STORAGE, JSON.stringify(defaultLists))
-  }
-
-  const listsFromStorage: ListType[] = JSON.parse(
-    localStorage.getItem(LISTS_LOCAL_STORAGE) || '',
-  )
-
-  const [lists, setLists] = useState(listsFromStorage)
   const [idOfDisplayList, setIdOfDisplayList] = useState(lists[0].id)
-
-  useEffect(() => {
-    localStorage.setItem(LISTS_LOCAL_STORAGE, JSON.stringify(lists))
-  }, [lists])
 
   const addTask = (nameNewTask: string) => {
     nameNewTask = nameNewTask
@@ -168,22 +147,17 @@ const App: FC = () => {
     <AppContainer mode={mode}>
       <Main mode={mode}>
         <Nav
-          lists={lists}
-          setLists={setLists}
           idOfDisplayList={idOfDisplayList}
           setIdOfDisplayList={setIdOfDisplayList}
         />
 
         <Header
           clearAllChecked={clearAllChecked}
-          addTask={addTask}
-          lists={lists}
           idOfDisplayList={idOfDisplayList}
           changeTheme={changeTheme}
         />
 
         <Tasks
-          lists={lists}
           idOfDisplayList={idOfDisplayList}
           checkTask={checkTask}
           editTask={editTask}

@@ -4,9 +4,10 @@ import styled from 'styled-components'
 import FormNewList from '../Form/FormNewItem'
 import Lists from './Lists/Lists'
 
-import { ListType, ModeProps } from '../../global/Types'
+import { ModeProps } from '../../global/Types'
 import { theme } from '../../theme/theme'
 import { ThemeContext } from '../../context/ThemeContext'
+import { DataContext } from '../../context/DataContext'
 import Alert from '../UI/alert/Alert'
 
 // #region Styled components
@@ -19,19 +20,13 @@ const NavDiv = styled.nav<ModeProps>`
 // #endregion
 
 type Props = {
-  lists: ListType[]
   idOfDisplayList: number
-  setLists: (newLists: ListType[]) => void
   setIdOfDisplayList: (newID: number) => void
 }
 
-const Nav: FC<Props> = function ({
-  lists,
-  setLists,
-  idOfDisplayList,
-  setIdOfDisplayList,
-}) {
+const Nav: FC<Props> = function ({ idOfDisplayList, setIdOfDisplayList }) {
   const { mode } = useContext(ThemeContext)
+  const { lists, setLists } = useContext(DataContext)
 
   const [inputValueNewList, setInputValueNewList] = useState('')
   const [useEffectAssistant, setUseEffectAssistant] = useState(1)
@@ -96,7 +91,6 @@ const Nav: FC<Props> = function ({
         />
 
         <Lists
-          lists={lists}
           removeList={removeList}
           setIdOfDisplayList={setIdOfDisplayList}
         />

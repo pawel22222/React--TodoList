@@ -1,6 +1,7 @@
 import { useContext, FC } from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from '../../context/ThemeContext'
+import { DataContext } from '../../context/DataContext'
 import { ListType } from '../../global/Types'
 
 import Button from '../UI/button/Button'
@@ -14,19 +15,17 @@ const ListNameH1 = styled.h1`
 
 type Props = {
   clearAllChecked: () => void
-  addTask: (taskName: string) => void
-  lists: ListType[]
   idOfDisplayList: number
   changeTheme: () => void
 }
 
 const Header: FC<Props> = ({
   clearAllChecked,
-  lists,
   idOfDisplayList,
   changeTheme,
 }) => {
   const { mode } = useContext(ThemeContext)
+  const { lists } = useContext(DataContext)
 
   const currentList = lists.find(
     (list: ListType) => list.id === idOfDisplayList,

@@ -1,6 +1,7 @@
 import { ListType, ModeProps } from '../../../global/Types'
 import { FC, useContext } from 'react'
 import { ThemeContext } from '../../../context/ThemeContext'
+import { DataContext } from '../../../context/DataContext'
 import styled from 'styled-components'
 import { theme } from '../../../theme/theme'
 import Button from '../../UI/button/Button'
@@ -15,13 +16,13 @@ const ButtonStyled = styled.button<ModeProps>`
 `
 
 type Props = {
-  lists: ListType[]
   removeList: (id: number) => void
   setIdOfDisplayList: (newID: number) => void
 }
 
-const Lists: FC<Props> = function ({ lists, removeList, setIdOfDisplayList }) {
+const Lists: FC<Props> = function ({ removeList, setIdOfDisplayList }) {
   const { mode } = useContext(ThemeContext)
+  const { lists } = useContext(DataContext)
 
   return (
     <div className='d-flex'>

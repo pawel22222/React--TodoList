@@ -1,9 +1,8 @@
 import Task from './Task/Task'
-import { FC, useRef } from 'react'
-import { ListType } from '../../global/Types'
+import { FC, useContext, useRef } from 'react'
+import { DataContext } from '../../context/DataContext'
 
 type Props = {
-  lists: ListType[]
   idOfDisplayList: number
   checkTask: (id: number) => void
   editTask: (id: number, text: string) => void
@@ -12,7 +11,6 @@ type Props = {
   setIsEditingTask: (isEditingTask: boolean) => void
 }
 const Tasks: FC<Props> = function ({
-  lists,
   idOfDisplayList,
   checkTask,
   editTask,
@@ -20,6 +18,7 @@ const Tasks: FC<Props> = function ({
   isEditingTask,
   setIsEditingTask,
 }) {
+  const { lists } = useContext(DataContext)
   const displayList = lists.filter((list) => list.id === idOfDisplayList)
 
   const todoTasks = displayList[0].tasks.filter((task) => !task.isChecked)
