@@ -46,17 +46,21 @@ const App: FC = () => {
     },
   ]
 
-  const getLocalStorage = localStorage.getItem('listsLocalStorage') || ''
+  const LISTS_LOCAL_STORAGE = 'listsLocalStorage'
 
-  const listsFromStorageOrDefault: ListType[] =
-    JSON.parse(getLocalStorage) || defaultLists
+  if (!localStorage.getItem(LISTS_LOCAL_STORAGE)) {
+    localStorage.setItem(LISTS_LOCAL_STORAGE, JSON.stringify(defaultLists))
+  }
 
-  const [lists, setLists] = useState(listsFromStorageOrDefault)
+  const listsFromStorage: ListType[] = JSON.parse(
+    localStorage.getItem(LISTS_LOCAL_STORAGE) || '',
+  )
 
+  const [lists, setLists] = useState(listsFromStorage)
   const [idOfDisplayList, setIdOfDisplayList] = useState(lists[0].id)
 
   useEffect(() => {
-    localStorage.setItem('listsLocalStorage', JSON.stringify(lists))
+    localStorage.setItem(LISTS_LOCAL_STORAGE, JSON.stringify(lists))
   }, [lists])
 
   const addTask = (nameNewTask: string) => {
