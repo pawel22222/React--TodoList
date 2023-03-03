@@ -64,7 +64,7 @@ const Tasks: FC<Props> = function ({
             style={{ cursor: 'pointer', userSelect: 'none' }}
             className='px-2'
           >
-            Complited ({doneTasks.length})
+            Completed ({doneTasks.length})
           </h4>
         )}
 
